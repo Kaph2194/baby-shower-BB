@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Shower · Kevin & Kathe 💛</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ocre:#c9963a;--ocre-l:#e8c97a;--ocre-p:#fdf3e0;
+  --sage:#8ba888;--sage-p:#eef4ed;
+  --blush:#fdf0ea;--rose:#e8b4a0;
+  --cream:#fdf8f0;
+  --td:#3d2b1f;--tm:#7a6050;--tl:#a89080;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);overflow-x:hidden;font-size:17px;line-height:1.75}
+
+/* ===== FLOATING BABY EMOJIS ===== */
+#floaty-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.floaty{position:absolute;animation:floatUp linear infinite;opacity:0;user-select:none}
+@keyframes floatUp{
+  0%{transform:translateY(110vh) rotate(0deg) scale(0.7);opacity:0}
+  8%{opacity:0.5}
+  85%{opacity:0.35}
+  100%{transform:translateY(-10vh) rotate(380deg) scale(1.15);opacity:0}
+}
+
+/* ===== ENVELOPE ===== */
+#env-screen{
+  position:fixed;inset:0;z-index:1000;
+  background:linear-gradient(145deg,#fdf3e3,#f5ecd8,#edf5ec);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:opacity 0.9s ease;
+}
+.env-wrap{animation:floatE 3s ease-in-out infinite}
+@keyframes floatE{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+.envelope{width:340px;height:230px;position:relative;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.15))}
+.env-base{width:340px;height:230px;background:linear-gradient(160deg,#fdf3e3,#f5e6ce);border-radius:12px;border:2px solid var(--ocre-l);position:absolute;overflow:hidden}
+.env-lt{position:absolute;top:0;left:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-left:170px solid rgba(232,190,110,0.45)}
+.env-rt{position:absolute;top:0;right:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-right:170px solid rgba(220,180,100,0.45)}
+.env-bt{position:absolute;bottom:0;left:0;right:0;border-left:170px solid transparent;border-right:170px solid transparent;border-bottom:115px solid rgba(240,210,140,0.55)}
+.env-flap{
+  position:absolute;top:0;left:0;right:0;z-index:10;
+  width:0;height:0;
+  border-left:170px solid transparent;border-right:170px solid transparent;border-top:130px solid var(--ocre-l);
+  transform-origin:top center;transition:transform 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+.env-flap.open{transform:rotateX(-175deg)}
+.env-seal{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:54px;height:54px;background:linear-gradient(135deg,var(--ocre),#d4a840);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:26px;z-index:15;
+  box-shadow:0 4px 16px rgba(201,150,58,0.55);animation:sP 2s ease-in-out infinite;
+}
+@keyframes sP{0%,100%{box-shadow:0 4px 16px rgba(201,150,58,0.55)}50%{box-shadow:0 4px 28px rgba(201,150,58,0.85)}}
+.env-label{text-align:center;margin-top:28px}
+.env-label h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--ocre);font-style:italic;margin-bottom:6px}
+.env-label p{font-size:14px;color:var(--tm);margin-bottom:20px}
+.env-btn{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 34px;
+  background:linear-gradient(135deg,var(--ocre),#d4a840);color:white;border:none;border-radius:32px;
+  font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;
+  box-shadow:0 6px 20px rgba(201,150,58,0.5);animation:bP 2.5s ease infinite;transition:transform 0.2s;
+}
+.env-btn:hover{transform:scale(1.04)}
+@keyframes bP{0%,100%{box-shadow:0 6px 20px rgba(201,150,58,0.5)}50%{box-shadow:0 6px 32px rgba(201,150,58,0.75)}}
+
+/* ===== MAIN ===== */
+#main-page{display:none;position:relative;z-index:1}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:60px 20px 40px;position:relative;
+}
+.hero-stripe{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#b8d4e8,var(--ocre-l),#b8e0c8,#f5c8a8,#d8c8e8)}
+
+.animals-row{display:flex;gap:18px;margin-bottom:28px;flex-wrap:wrap;justify-content:center}
+.ab{
+  width:68px;height:68px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+  cursor:pointer;border:2px solid transparent;
+  position:relative;transition:transform 0.2s;
+}
+.ab:nth-child(1){background:linear-gradient(135deg,#fce4ec,#f8bbd9);border-color:#f0a8c0;animation:aF 3.5s ease-in-out infinite 0s}
+.ab:nth-child(2){background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#a5d6a7;animation:aF 3.5s ease-in-out infinite 0.5s}
+.ab:nth-child(3){background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:#90caf9;animation:aF 3.5s ease-in-out infinite 1s}
+.ab:nth-child(4){background:linear-gradient(135deg,#fff8e1,#ffe082);border-color:#ffd54f;animation:aF 3.5s ease-in-out infinite 1.5s}
+.ab:nth-child(5){background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-color:#ce93d8;animation:aF 3.5s ease-in-out infinite 2s}
+@keyframes aF{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+.ab:active{transform:scale(1.4) rotate(15deg)!important}
+
+.ab-bubble{
+  display:none;position:absolute;bottom:76px;left:50%;transform:translateX(-50%);
+  background:var(--td);color:white;font-size:12px;padding:6px 12px;border-radius:12px;
+  white-space:nowrap;z-index:10;pointer-events:none;font-family:'Nunito',sans-serif;
+  animation:popIn 0.25s ease;
+}
+@keyframes popIn{from{transform:translateX(-50%) scale(0.7);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+.ab-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--td)}
+
+.hero-tag{font-size:16px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);font-weight:700;margin-bottom:12px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,13vw,110px);color:var(--ocre);line-height:1;font-style:italic;margin-bottom:8px;text-shadow:0 2px 20px rgba(201,150,58,0.18)}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,36px);color:var(--tm);font-style:italic;margin-bottom:28px}
+
+.date-chips{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:22px}
+.dc{background:white;border:1.5px solid var(--ocre-l);border-radius:20px;padding:13px 22px;text-align:center;box-shadow:0 4px 16px rgba(201,150,58,0.1)}
+.dc-ico{font-size:24px;margin-bottom:3px}
+.dc-v{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--td);display:block}
+.dc-l{font-size:13px;color:var(--tl);text-transform:uppercase;letter-spacing:1.5px}
+
+.hero-hosts{font-size:17px;color:var(--tm);background:linear-gradient(135deg,var(--ocre-p),var(--blush));padding:13px 30px;border-radius:32px;border:1px solid var(--ocre-l);font-style:italic}
+.hero-hosts strong{font-style:normal;color:var(--ocre);font-weight:700}
+
+/* ===== SECTIONS ===== */
+.sec{padding:70px 20px;max-width:880px;margin:0 auto}
+.sh{text-align:center;margin-bottom:44px}
+.sl{font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--sage);font-weight:700;margin-bottom:8px}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,7vw,58px);color:var(--td);font-style:italic}
+.st span{color:var(--ocre)}
+
+/* ===== COUNTDOWN ===== */
+.cd-section{background:linear-gradient(135deg,var(--ocre-p),white,var(--sage-p));padding:60px 20px;border-top:1px solid rgba(232,201,122,0.25);border-bottom:1px solid rgba(232,201,122,0.25)}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:560px;margin:0 auto}
+.cd-box{background:white;border-radius:20px;padding:24px 10px;text-align:center;border:2px solid var(--ocre-l);box-shadow:0 6px 20px rgba(201,150,58,0.1);position:relative;overflow:hidden;transition:transform 0.1s}
+.cd-box.tick{transform:scale(1.05)}
+.cd-n{font-family:'Cormorant Garamond',serif;font-size:62px;font-weight:600;color:var(--ocre);display:block;line-height:1;margin-bottom:6px}
+.cd-l{font-size:14px;color:var(--tl);text-transform:uppercase;letter-spacing:2px;font-weight:600}
+.cd-done{text-align:center;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ocre);font-style:italic;padding:32px}
+
+/* ===== ENTRY NOTE ===== */
+.entry-banner{
+  background:linear-gradient(135deg,#fef3c7,#fde68a,#fef3c7);
+  border:2px solid #f59e0b;border-radius:20px;
+  padding:28px 32px;margin:0 auto 32px;max-width:680px;text-align:center;
+  box-shadow:0 4px 20px rgba(245,158,11,0.2);
+}
+.entry-banner h3{font-family:'Cormorant Garamond',serif;font-size:30px;color:#92400e;font-style:italic;margin-bottom:16px}
+.entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left}
+.entry-item{background:white;border-radius:14px;padding:14px 18px;display:flex;align-items:flex-start;gap:10px;border:1px solid rgba(245,158,11,0.3)}
+.entry-ico{font-size:26px;margin-top:2px}
+.entry-title{font-weight:700;color:#92400e;font-size:17px;margin-bottom:3px}
+.entry-desc{font-size:15px;color:var(--tm);line-height:1.5}
+
+/* ===== GIFTS ===== */
+.gift-note{text-align:center;font-size:16px;color:var(--tm);background:linear-gradient(135deg,var(--sage-p),white);border:1px solid rgba(139,168,136,0.3);border-radius:16px;padding:15px 22px;margin-bottom:32px;line-height:1.8}
+.fc{background:white;border-radius:20px;border:1.5px solid rgba(232,201,122,0.3);margin-bottom:22px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,0.05);transition:box-shadow 0.3s}
+.fc:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.fh{background:linear-gradient(135deg,var(--ocre-p),white);padding:16px 22px;border-bottom:1px solid rgba(232,201,122,0.22);display:flex;align-items:center;gap:10px}
+.fhi{font-size:22px}.fhn{font-family:'Cormorant Garamond',serif;font-size:23px;color:var(--td);font-style:italic}
+.gl{padding:10px 14px}
+.gr{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:12px;margin-bottom:7px;cursor:pointer;transition:all 0.22s;border:1.5px solid transparent;background:#fafafa}
+.gr:last-child{margin-bottom:0}
+.gr:hover:not(.taken){background:var(--blush);border-color:var(--rose);transform:translateX(5px)}
+.gr.taken{opacity:0.5;cursor:default;background:#f5f5f5}
+.gr.taken .gr-n{text-decoration:line-through;color:var(--tl)}
+.gr-ico{font-size:25px;min-width:30px;text-align:center}
+.gr-info{flex:1}.gr-n{font-size:16px;color:var(--td);font-weight:600;margin-bottom:2px}
+.gr-by{font-size:14px;color:var(--sage);font-style:italic}
+.gr-tag{font-size:13px;font-weight:700;padding:5px 13px;border-radius:14px;white-space:nowrap}
+.gr-tag.av{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);color:#2e7d32}
+.gr-tag.tk{background:#f0f0f0;color:#aaa}
+.gr-by-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.gr-slot-name{font-size:12px;color:var(--sage);background:var(--sage-p);border:1px solid rgba(139,168,136,0.3);border-radius:20px;padding:2px 10px;font-style:italic}
+.gr-progress{height:5px;background:#eee;border-radius:4px;margin-top:7px;overflow:hidden}
+.gr-progress-bar{height:100%;background:linear-gradient(90deg,var(--sage),var(--ocre-l));border-radius:4px;transition:width 0.4s ease}
+
+/* ===== GAMES ===== */
+.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.game-card{background:white;border-radius:18px;padding:22px;border:1.5px solid rgba(232,201,122,0.25);box-shadow:0 4px 16px rgba(0,0,0,0.05);transition:transform 0.25s,box-shadow 0.25s}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.09)}
+.game-ico{font-size:44px;margin-bottom:10px}
+.game-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ocre);font-style:italic;margin-bottom:6px}
+.game-desc{font-size:16px;color:var(--tm);line-height:1.6}
+
+/* ===== MAP ===== */
+.map-card{background:white;border-radius:22px;overflow:hidden;border:1.5px solid rgba(139,168,136,0.3);box-shadow:0 8px 28px rgba(0,0,0,0.07)}
+.map-embed-wrap{width:100%;height:320px;position:relative;background:#e8f0ea}
+.map-embed-wrap iframe{width:100%;height:100%;border:none;display:block}
+.loc-info{padding:26px 28px}
+.loc-title{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--ocre);font-style:italic;margin-bottom:5px}
+.loc-addr{font-size:17px;color:var(--tm);margin-bottom:18px;line-height:1.7}
+.loc-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.np{display:flex;align-items:center;gap:9px;background:var(--sage-p);border-radius:11px;padding:13px 16px;font-size:15px;color:var(--tm);border:1px solid rgba(139,168,136,0.22)}
+.np-i{font-size:17px;min-width:20px}
+
+/* ===== CONFIRM ===== */
+.confirm-bg{background:linear-gradient(135deg,var(--blush),var(--ocre-p),var(--sage-p));padding:70px 20px}
+.confirm-card{background:white;border-radius:26px;max-width:540px;margin:0 auto;padding:38px 34px;box-shadow:0 12px 44px rgba(0,0,0,0.09);border:1.5px solid rgba(232,201,122,0.3)}
+.form-row{display:grid;gap:14px;margin-bottom:14px}
+.form-row.c2{grid-template-columns:1fr 1fr}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fl{font-size:14px;font-weight:700;color:var(--tm);letter-spacing:1px;text-transform:uppercase}
+.fi2{padding:14px 16px;border:1.5px solid rgba(201,150,58,0.25);border-radius:11px;font-family:'Nunito',sans-serif;font-size:16px;color:var(--td);background:white;outline:none;transition:border-color 0.22s,box-shadow 0.22s;-webkit-appearance:none}
+.fi2:focus{border-color:var(--ocre);box-shadow:0 0 0 3px rgba(201,150,58,0.1)}
+.atopts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.ao{padding:13px 6px;text-align:center;border:1.5px solid rgba(201,150,58,0.25);border-radius:13px;cursor:pointer;transition:all 0.22s;background:white}
+.ao:hover,.ao.sel{border-color:var(--ocre);background:var(--ocre-p)}
+.ao.sel .ao-l{color:var(--ocre)}
+.ao-i{font-size:28px;display:block;margin-bottom:4px}
+.ao-l{font-size:14px;font-weight:600;color:var(--tm)}
+.sub-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--ocre),#d4a840);color:white;border:none;border-radius:17px;font-family:'Cormorant Garamond',serif;font-size:26px;font-style:italic;cursor:pointer;box-shadow:0 7px 22px rgba(201,150,58,0.4);transition:all 0.28s;margin-top:6px}
+.sub-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,150,58,0.5)}
+.sub-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.sub-note{text-align:center;font-size:14px;color:var(--tl);margin-top:10px;line-height:1.6;font-style:italic}
+.sub-msg{text-align:center;font-size:15px;margin-top:10px;min-height:18px;color:var(--sage);font-style:italic}
+.sub-msg.err{color:#c0392b}
+
+/* ===== SUCCESS ===== */
+.suc{display:none;text-align:center;animation:fuA 0.7s ease}
+@keyframes fuA{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.suc-i{font-size:70px;margin-bottom:14px;animation:sB 1s ease infinite}
+@keyframes sB{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+.suc-t{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--ocre);font-style:italic;margin-bottom:10px}
+.suc-p{font-size:17px;color:var(--tm);line-height:1.8}
+.cal-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 26px;background:linear-gradient(135deg,#4285f4,#1a73e8);color:white;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(66,133,244,0.4);transition:all 0.25s}
+.cal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(66,133,244,0.5)}
+
+/* ===== MUSIC ===== */
+.mus-w{position:fixed;bottom:22px;right:22px;z-index:999;display:none;background:white;border-radius:40px;padding:11px 17px;align-items:center;gap:9px;box-shadow:0 8px 28px rgba(0,0,0,0.14);border:1.5px solid var(--ocre-l);cursor:pointer;animation:slideUp 0.6s ease}
+@keyframes slideUp{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mn{font-size:22px;animation:spin 3s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.mn.off{animation:none}
+.mt2{font-size:14px;color:var(--tm);font-weight:600}
+.mti{font-size:15px;color:var(--ocre)}
+
+/* ===== FOOTER ===== */
+footer{background:var(--td);color:rgba(255,255,255,0.65);text-align:center;padding:40px 20px;font-size:16px;font-style:italic;letter-spacing:0.4px;line-height:2.2}
+footer strong{color:var(--ocre-l)}
+
+/* ===== MODAL ===== */
+.mw{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.52);z-index:2000;align-items:center;justify-content:center;padding:20px}
+.mw.open{display:flex}
+.mb{background:white;border-radius:22px;padding:34px;max-width:390px;width:100%;text-align:center;box-shadow:0 22px 56px rgba(0,0,0,0.18);animation:fuA 0.3s ease}
+.mt3{font-family:'Cormorant Garamond',serif;font-size:27px;color:var(--td);margin-bottom:6px;font-style:italic}
+.mg{font-weight:700;color:var(--ocre);font-size:18px;margin-bottom:6px}
+.ms{font-size:15px;color:var(--tm);margin-bottom:18px;line-height:1.6}
+.mi{width:100%;padding:14px 16px;border:1.5px solid rgba(201,150,58,0.3);border-radius:11px;font-family:'Nunito',sans-serif;font-size:14px;color:var(--td);outline:none;margin-bottom:14px;transition:border-color 0.22s}
+.mi:focus{border-color:var(--ocre)}
+.ma{display:flex;gap:9px}
+.mc{flex:1;padding:12px;border:1.5px solid rgba(201,150,58,0.25);border-radius:11px;background:white;color:var(--tm);cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600}
+.mok{flex:1;padding:12px;background:var(--ocre);border:none;border-radius:11px;color:white;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700}
+.mok:hover{background:#b8882e}
+.mst{font-size:12px;color:var(--tl);font-style:italic;margin-top:10px;min-height:16px}
+
+@media(max-width:580px){
+  .cd-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row.c2{grid-template-columns:1fr}
+  .confirm-card{padding:26px 18px}
+  .entry-grid{grid-template-columns:1fr}
+  .envelope{width:290px;height:195px}
+  .env-flap{border-left-width:145px;border-right-width:145px;border-top-width:110px}
+  .env-lt{border-left-width:145px;border-top-width:97px;border-bottom-width:97px}
+  .env-rt{border-right-width:145px;border-top-width:97px;border-bottom-width:97px}
+  .env-bt{border-left-width:145px;border-right-width:145px;border-bottom-width:97px}
+  .env-base{width:290px;height:195px}
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING BABY EMOJIS BACKGROUND -->
+<div id="floaty-bg"></div>
+
+<!-- ===== ENVELOPE ===== -->
+<div id="env-screen">
+  <div class="env-wrap" onclick="openEnvelope()">
+    <div class="envelope">
+      <div class="env-base">
+        <div class="env-lt"></div>
+        <div class="env-rt"></div>
+        <div class="env-bt"></div>
+      </div>
+      <div class="env-flap" id="env-flap"></div>
+      <div class="env-seal">💛</div>
+    </div>
+    <div class="env-label">
+      <h1>¡Tienes una invitación especial!</h1>
+      <p>De parte de Kevin &amp; Kathe con mucho amor</p>
+      <button class="env-btn" onclick="event.stopPropagation();openEnvelope()">✉&nbsp; Abrir sobre</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN PAGE ===== -->
+<div id="main-page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-stripe"></div>
+
+    <div class="animals-row">
+      <div class="ab" onclick="animalClick(this,'¡Gran abrazo elefantil! 🤍')">🐘</div>
+      <div class="ab" onclick="animalClick(this,'¡Bienvenido/a al safari! 🌿')">🦒</div>
+      <div class="ab" onclick="animalClick(this,'¡Pío pío, bebé en camino! 🐣')">🐣</div>
+      <div class="ab" onclick="animalClick(this,'¡Rugido de amor! 🧡')">🦁</div>
+      <div class="ab" onclick="animalClick(this,'¡Hop hop, saltando de emocion! 🌸')">🐰</div>
+    </div>
+    <p class="hero-tag"> Haz Clic sobre los animales </p>
+    <p class="hero-tag">🌿 Con todo nuestro amor 🌿</p>
+    <h1 class="hero-title">Baby Shower</h1>
+    <p class="hero-sub">¡Nuestro bebé está en camino!</p>
+
+    <div class="date-chips">
+      <div class="dc"><div class="dc-ico">📅</div><span class="dc-v">16 Agosto</span><span class="dc-l">Fecha</span></div>
+      <div class="dc"><div class="dc-ico">🕒</div><span class="dc-v">3:00 PM</span><span class="dc-l">Hora</span></div>
+      <div class="dc"><div class="dc-ico">🎀</div><span class="dc-v">2026</span><span class="dc-l">Año</span></div>
+    </div>
+
+    <div class="hero-hosts">
+      Te invitan con amor · <strong>Kevin &amp; Kathe</strong> · a celebrar a nuestro bebé 💛
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="cd-section">
+    <div class="sh">
+      <p class="sl">⏰ Ya falta poco</p>
+      <h2 class="st">Cuenta <span>Regresiva</span></h2>
+    </div>
+    <div id="cd-wrap">
+      <div class="cd-grid">
+        <div class="cd-box"><span class="cd-n" id="cd-d">--</span><div class="cd-l">Días</div></div>
+        <div class="cd-box"><span class="cd-n" id="cd-h">--</span><div class="cd-l">Horas</div></div>
+        <div class="cd-box"><span class="cd-n" id="cd-m">--</span><div class="cd-l">Minutos</div></div>
+        <div class="cd-box"><span class="cd-n" id="cd-s">--</span><div class="cd-l">Segundos</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTRY NOTE: PAÑALES Y PAÑITOS -->
+  <section style="padding:50px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7)">
+    <div class="sh">
+      <p class="sl">🎟 Entrada especial</p>
+      <h2 class="st" style="color:#92400e">¿Cómo <span style="color:#d97706">entrar?</span></h2>
+    </div>
+    <div class="entry-banner">
+      <h3>¡La entrada tiene un toque especial! 👶</h3>
+      <div class="entry-grid">
+        <div class="entry-item">
+          <span class="entry-ico">👨</span>
+          <div>
+            <div class="entry-title">Hombres traen Pañales</div>
+            <div class="entry-desc">Pañales de cualquier etapa, desde <strong>Etapa 1 hasta Etapa 3</strong>.<br>¡Cualquier marca es bienvenida!</div>
+          </div>
+        </div>
+        <div class="entry-item">
+          <span class="entry-ico">👩</span>
+          <div>
+            <div class="entry-title">Mujeres traen Pañitos</div>
+            <div class="entry-desc">Pañitos húmedos para bebé.<br>¡Nunca sobran y siempre son necesarios!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFTS -->
+  <section class="sec">
+    <div class="sh">
+      <p class="sl">🎁 Con cariño</p>
+      <h2 class="st">Lista de <span>Regalos</span></h2>
+    </div>
+    <div class="gift-note">💛 Haz clic en el regalo que quieras traer, escribe tu nombre y quedará reservado para ti.<br>¡Te Agradecemos de corazon por el amor que le tienes a nuestro Bebé!</div>
+    <div id="gifts-c"></div>
+  </section>
+
+  <!-- GAMES -->
+  <section style="background:linear-gradient(135deg,var(--blush),var(--ocre-p));padding:70px 20px">
+    <div class="sh">
+      <p class="sl">🎮 Diversión garantizada</p>
+      <h2 class="st" style="color:var(--td)">Juegos &amp; <span>Actividades</span></h2>
+    </div>
+    <div class="games-grid" style="max-width:880px;margin:0 auto">
+      <div class="game-card">
+        <div class="game-ico">🍼</div>
+        <div class="game-title">¿Quién conoce más a mamá?</div>
+        <div class="game-desc">Trivia sobre Kathe: sus gustos, miedos de mamá primeriza y secretos que solo sus más cercanos conocen. ¡El que más acierte gana!</div>
+      </div>
+      <div class="game-card">
+        <div class="game-ico">🎨</div>
+        <div class="game-title">Decora el body del bebé</div>
+        <div class="game-desc">Cada familia decorará un body blanco con pinturas de colores y marcadores textiles. ¡El bebé tendrá ropa hecha con amor!</div>
+      </div>
+      <div class="game-card">
+        <div class="game-ico">📏</div>
+        <div class="game-title">Adivina la barriguita</div>
+        <div class="game-desc">Con un trozo de hilo o cinta cada uno calculara cuánto mide la barriga de Kathe. El más cercano gana un premio sorpresa 🎁</div>
+      </div>
+      <div class="game-card">
+        <div class="game-ico">👶</div>
+        <div class="game-title">¿A quién se parecerá?</div>
+        <div class="game-desc">Cada invitado votara si el bebé se parecerá más a Kevin o a Kathe, y describira qué rasgo heredará. ¡Descubriremos quién tenía razón!</div>
+      </div>
+      <div class="game-card">
+        <div class="game-ico">💌</div>
+        <div class="game-title">Carta al bebé</div>
+        <div class="game-desc">Escribiran un mensaje al bebé para que lo lea cuando tenga la edad para hacerlo. Kevin y Kathe guardarán todos los mensajes en una cajita especial.</div>
+      </div>
+      <div class="game-card">
+        <div class="game-ico">🍫</div>
+        <div class="game-title">El Nombre misterioso</div>
+        <div class="game-desc">¿Puedes adivinar el nombre del bebé solo con sus letras? El que acierte gana el premio especial. ¡Más divertido de lo que parece! 😂</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="sec" style="padding-top:70px">
+    <div class="sh">
+      <p class="sl">📍 Te esperamos aquí</p>
+      <h2 class="st">¿Dónde <span>será?</span></h2>
+    </div>
+    <div class="map-card">
+      <!-- Mapa via OpenStreetMap — sin API key, funciona siempre -->
+      <div class="map-embed-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5109977380807!2d-74.16840712418676!3d4.680876641827364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9de4803e836b%3A0x8d07be966d588b9a!2sSolsticio%20Etapa%204!5e0!3m2!1ses-419!2sco!4v1777929945233!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          loading="lazy"
+          title="Salón Comunal Solsticio 4"
+          style="width:100%;height:100%;border:none">
+        </iframe>
+      </div>
+      <div class="loc-info">
+        <div class="loc-title">Salón Comunal Solsticio 4</div>
+        <div class="loc-addr">
+          📌 Calle 14b # 119a-76, Bogotá, Colombia<br>
+          <a href="https://maps.google.com/?q=Calle+14b+119a-76+Bogota" target="_blank" style="color:var(--sage);font-size:13px;text-decoration:none">🗺 Abrir en Google Maps →</a>
+        </div>
+        <div class="loc-notes">
+          <div class="np"><span class="np-i">🕑</span> Puertas abren a las 2:30 PM</div>
+          <div class="np"><span class="np-i">👗</span> Colores pasteles o blanco</div>
+          <div class="np"><span class="np-i">🚌</span> Puedes Llegar en SITP, Alimentador o Taxi, colocando el nombre del conjunto en Waze</div>
+          <div class="np"><span class="np-i">🍰</span> Torta incluida</div>
+          <div class="np"><span class="np-i">🎮</span> Juegos y actividades</div>
+          <div class="np"><span class="np-i">🎉</span> ¡Sorpresas para todos!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIRM -->
+  <section class="confirm-bg">
+    <div class="sh">
+      <p class="sl">✉ Cuéntanos</p>
+      <h2 class="st" style="color:var(--td)">¿Nos <span>acompañas?</span></h2>
+    </div>
+    <div class="confirm-card">
+      <div id="form-area">
+        <div class="form-row c2">
+          <div class="fg"><label class="fl">Tu nombre</label><input class="fi2" id="fn" type="text" placeholder="María García"></div>
+          <div class="fg"><label class="fl">Familia / Grupo</label><input class="fi2" id="ff" type="text" placeholder="Familia Rodríguez"></div>
+        </div>
+        <div class="form-row c2">
+          <div class="fg"><label class="fl">WhatsApp (opcional)</label><input class="fi2" id="fp" type="tel" placeholder="+57 300 000 0000"></div>
+          <div class="fg"><label class="fl">¿Cuántas personas?</label><input class="fi2" id="fg2" type="number" min="1" max="10" placeholder="1"></div>
+        </div>
+        <p class="fl" style="margin-bottom:9px">¿Confirmas tu asistencia?</p>
+        <div class="atopts">
+          <div class="ao sel" data-v="Sí voy 🎉" onclick="selAt(this)"><span class="ao-i">🎉</span><span class="ao-l">¡Sí voy!</span></div>
+          <div class="ao" data-v="Tal vez 🤔" onclick="selAt(this)"><span class="ao-i">🤔</span><span class="ao-l">Tal vez</span></div>
+          <div class="ao" data-v="No podré 😢" onclick="selAt(this)"><span class="ao-i">😢</span><span class="ao-l">No podré</span></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Mensaje para Kevin &amp; Kathe</label><textarea class="fi2" id="fm" rows="3" placeholder="Escríbeles algo bonito 💛" style="resize:none"></textarea></div>
+        </div>
+        <button class="sub-btn" id="sub-btn" onclick="submitForm()">✨ Confirmar Asistencia ✨</button>
+        <p class="sub-note">Al confirmar podrás agregar el evento a tu Google Calendar 📅</p>
+        <p class="sub-msg" id="sub-msg"></p>
+      </div>
+      <div class="suc" id="suc-area">
+        <div class="suc-i">🎀</div>
+        <div class="suc-t">¡Gracias, te esperamos!</div>
+        <p class="suc-p">Kevin &amp; Kathe están muy felices de que los acompañes.<br><br>
+          Nos vemos el <strong>16 de Agosto 2026 a las 3:00 PM</strong> 💛<br>
+          Salón Comunal Solsticio 4 · Calle 14b # 119a-76</p>
+        <button class="cal-btn" onclick="addToCalendar()">📅&nbsp; Agregar a Google Calendar</button>
+        <p style="font-size:12px;color:var(--tl);margin-top:10px;font-style:italic">Se abrirá en una nueva pestaña</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>🌿 &nbsp; Con todo nuestro amor &nbsp; 🌿</div>
+    <div><strong>Kevin &amp; Kathe</strong></div>
+    <div>Baby Shower · 16 de Agosto 2026 · 3:00 PM</div>
+    <div style="margin-top:10px;font-size:11px;opacity:0.4">Diseñado con ❤ para nuestro bebé</div>
+  </footer>
+</div>
+
+<!-- MUSIC WIDGET -->
+<div class="mus-w" id="mus-w" onclick="toggleMusic()">
+  <span class="mn" id="mn">🎵</span>
+  <span class="mt2" id="mt2">Música suave ♫</span>
+  <span class="mti" id="mti">⏸</span>
+</div>
+
+<!-- GIFT MODAL -->
+<div class="mw" id="gm">
+  <div class="mb">
+    <div style="font-size:38px;margin-bottom:10px">🎁</div>
+    <div class="mt3">Reservar regalo</div>
+    <div class="mg" id="gm-name"></div>
+    <div class="ms" id="gm-sub">Tu nombre quedará visible en la lista. ¡Gracias por tu amor! 💛</div>
+    <input class="mi" id="gm-inp" type="text" placeholder="Tu nombre o familia (ej: Familia López)">
+    <div class="ma">
+      <button class="mc" onclick="closeGM()">Cancelar</button>
+      <button class="mok" id="gm-ok" onclick="confirmGift()">¡Yo lo traigo!</button>
+    </div>
+    <p class="mst" id="gm-st"></p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — reemplaza con tu Google Apps Script URL
+// ============================================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyg4TYLFOnWR3MWszbHMzTC9kJNztbFHxQNYoZ6mGXC3opNJ6bWzHJj5uNWc_27wouP/exec';
+// ============================================================
+
+// ===== FLOATING EMOJIS =====
+(function(){
+  const emojis=['🍼','🎀','👶','🌟','🍭','🎈','🌸','🐥','⭐','🌈','🧸','🍬','💛','🌻','🎁','🦋','🐣','🌷','✨','🎊','🐘','🐰','🦒','🐣','💫'];
+  const bg=document.getElementById('floaty-bg');
+  for(let i=0;i<30;i++){
+    const el=document.createElement('div');
+    el.className='floaty';
+    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    const size=16+Math.random()*16;
+    el.style.cssText=`left:${Math.random()*100}%;font-size:${size}px;animation-delay:${Math.random()*16}s;animation-duration:${10+Math.random()*10}s;`;
+    bg.appendChild(el);
+  }
+})();
+
+// ===== ANIMALS — funciona en touch y click =====
+const animalMsgs={};
+let msgTimers={};
+function animalClick(el, msg){
+  // Detener animación y hacer pop
+  el.style.animation='none';
+  el.style.transform='scale(1.45) rotate(15deg)';
+
+  // Crear o mostrar burbuja
+  let bubble = el.querySelector('.ab-bubble');
+  if(!bubble){
+    bubble = document.createElement('div');
+    bubble.className='ab-bubble';
+    el.appendChild(bubble);
+  }
+  bubble.textContent = msg;
+  bubble.style.display='block';
+
+  // Limpiar timer previo
+  const key = el.dataset.idx || (el.dataset.idx = Math.random());
+  clearTimeout(msgTimers[key]);
+
+  // Volver a animación después de 600ms
+  setTimeout(()=>{
+    el.style.transform='';
+    el.style.animation='';
+  }, 600);
+
+  // Ocultar burbuja después de 2.5s
+  msgTimers[key] = setTimeout(()=>{
+    bubble.style.display='none';
+  }, 2500);
+}
+
+// ===== COUNTDOWN — se inicia al abrir el sobre =====
+function startCountdown(){
+  // Fecha: 16 agosto 2026, 3:00 PM, hora Colombia (UTC-5)
+  const target = new Date('2026-08-16T15:00:00-05:00').getTime();
+
+  function tick(){
+    const now = Date.now();
+    const diff = target - now;
+    const wrap = document.getElementById('cd-wrap');
+
+    if(diff <= 0){
+      wrap.innerHTML='<div class="cd-done">🎉 ¡El momento ha llegado! ¡Feliz Baby Shower! 🎉</div>';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    const dEl=document.getElementById('cd-d');
+    const hEl=document.getElementById('cd-h');
+    const mEl=document.getElementById('cd-m');
+    const sEl=document.getElementById('cd-s');
+
+    if(dEl) dEl.textContent = String(days).padStart(2,'0');
+    if(hEl) hEl.textContent = String(hours).padStart(2,'0');
+    if(mEl) mEl.textContent = String(mins).padStart(2,'0');
+    if(sEl){
+      // Efecto tick visual en segundos
+      const prev = sEl.textContent;
+      const next = String(secs).padStart(2,'0');
+      if(prev !== next){
+        sEl.textContent = next;
+        const box = sEl.closest('.cd-box');
+        if(box){ box.classList.add('tick'); setTimeout(()=>box.classList.remove('tick'),100); }
+      }
+    }
+  }
+
+  tick(); // Ejecutar de inmediato
+  setInterval(tick, 1000);
+}
+
+// ===== ENVELOPE =====
+function openEnvelope(){
+  document.getElementById('env-flap').classList.add('open');
+  const sc = document.getElementById('env-screen');
+  setTimeout(()=>{
+    sc.style.opacity = '0';
+    setTimeout(()=>{
+      sc.style.display = 'none';
+      document.getElementById('main-page').style.display = 'block';
+      document.getElementById('mus-w').style.display = 'flex';
+      startCountdown();  // ← inicia aquí, cuando el DOM de la cuenta ya existe
+      isPlaying = true;
+      startMusic();
+      renderGifts();
+    }, 800);
+  }, 1000);
+}
+
+// ===== GIFTS — lista única con slots múltiples para ropa =====
+// slots: número de familias que pueden escoger ese regalo
+// reservations: array con los nombres de quienes ya reservaron
+const gifts=[
+  {id:"g1",  icon:"🎒", name:"Pañalera",                    slots:1, reservations:[]},
+  {id:"g2",  icon:"🛒", name:"Coche / Cochecito",            slots:1, reservations:[]},
+  {id:"g3",  icon:"🛏", name:"Colecho / Moisés",             slots:1, reservations:[]},
+  {id:"g4",  icon:"🛁", name:"Tina / Bañera para bebé",      slots:1, reservations:[]},
+  {id:"g5",  icon:"👶", name:"Ropa recién nacido (0-3 m)",   slots:6, reservations:[]},
+  {id:"g6",  icon:"👕", name:"Ropa bebé (3-6 meses)",        slots:6, reservations:[]},
+  {id:"g7",  icon:"👗", name:"Ropa bebé (6-9 meses)",        slots:6, reservations:[]},
+  {id:"g8",  icon:"🧴", name:"Kit de aseo e higiene bebé",   slots:1, reservations:[]},
+  {id:"g9",  icon:"🍼", name:"Set de biberones anticólico",  slots:1, reservations:[]},
+  {id:"g10", icon:"🌡", name:"Termómetro digital + báscula", slots:1, reservations:[]},
+];
+
+let currentGift=null;
+
+function isFull(item){ return item.reservations.length >= item.slots; }
+
+function renderGifts(){
+  const c=document.getElementById('gifts-c');
+  c.innerHTML='';
+  let rows='';
+  gifts.forEach((item,i)=>{
+    const full   = isFull(item);
+    const taken  = item.reservations.length;
+    const avail  = item.slots - taken;
+    const multi  = item.slots > 1;
+
+    // Etiqueta de estado
+    let tag='';
+    if(full){
+      tag=`<span class="gr-tag tk">✓ Completo</span>`;
+    } else if(multi){
+      tag=`<span class="gr-tag av">Reservar · ${avail} disponible${avail>1?'s':''}</span>`;
+    } else {
+      tag=`<span class="gr-tag av">Reservar 🎁</span>`;
+    }
+
+    // Nombres de quienes ya reservaron
+    let byList='';
+    if(taken>0){
+      const names = item.reservations.map(n=>`<span class="gr-slot-name">✓ ${n}</span>`).join('');
+      byList=`<div class="gr-by-list">${names}</div>`;
+    }
+
+    // Barra de progreso para ropa
+    let progress='';
+    if(multi){
+      const pct=Math.round((taken/item.slots)*100);
+      progress=`<div class="gr-progress"><div class="gr-progress-bar" style="width:${pct}%"></div></div>`;
+    }
+
+    rows+=`<div class="gr${full?' taken':''}" onclick="pickGift(${i})">
+      <span class="gr-ico">${item.icon}</span>
+      <div class="gr-info">
+        <div class="gr-n">${item.name}</div>
+        ${byList}
+        ${progress}
+      </div>
+      ${tag}
+    </div>`;
+  });
+  c.innerHTML=`<div class="fc"><div class="gl">${rows}</div></div>`;
+}
+
+function pickGift(i){
+  if(isFull(gifts[i])) return;
+  currentGift=i;
+  const item=gifts[i];
+  const avail=item.slots - item.reservations.length;
+  const multi=item.slots>1;
+  document.getElementById('gm-name').textContent=item.name;
+  document.getElementById('gm-sub').textContent=multi
+    ? `Quedan ${avail} de ${item.slots} cupos disponibles 👕`
+    : '¡Tu nombre quedará registrado en la lista! 💛';
+  document.getElementById('gm-inp').value='';
+  document.getElementById('gm-st').textContent='';
+  document.getElementById('gm').classList.add('open');
+}
+function closeGM(){document.getElementById('gm').classList.remove('open');currentGift=null;}
+
+async function confirmGift(){
+  const name=document.getElementById('gm-inp').value.trim();
+  if(!name){alert('Por favor escribe tu nombre o familia 💛');return;}
+  // Evitar doble reserva del mismo nombre en el mismo regalo
+  if(gifts[currentGift].reservations.includes(name)){
+    alert('¡Ya reservaste este regalo! 💛');return;
+  }
+  const btn=document.getElementById('gm-ok');
+  btn.disabled=true; btn.textContent='Guardando...';
+  const item=gifts[currentGift];
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'gift',giftId:item.id,giftName:item.name,
+        slot:`${item.reservations.length+1}/${item.slots}`,
+        reservedBy:name,timestamp:new Date().toISOString()})});
+  }catch(e){}
+  gifts[currentGift].reservations.push(name);
+  renderGifts(); closeGM();
+  btn.disabled=false; btn.textContent='¡Yo lo traigo!';
+}
+
+// ===== ATTEND & FORM =====
+let atVal='Sí voy 🎉';
+function selAt(el){
+  document.querySelectorAll('.ao').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');atVal=el.dataset.v;
+}
+async function submitForm(){
+  const name=document.getElementById('fn').value.trim();
+  if(!name){showMsg('Por favor escribe tu nombre 💛',true);return;}
+  const btn=document.getElementById('sub-btn');
+  btn.disabled=true;btn.textContent='Enviando...';
+  const payload={
+    action:'confirm',
+    name,
+    family:document.getElementById('ff').value.trim(),
+    phone:document.getElementById('fp').value.trim(),
+    guests:document.getElementById('fg2').value.trim()||'1',
+    attendance:atVal,
+    message:document.getElementById('fm').value.trim(),
+    timestamp:new Date().toISOString()
+  };
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }catch(e){}
+  document.getElementById('form-area').style.display='none';
+  document.getElementById('suc-area').style.display='block';
+}
+function showMsg(t,e){const el=document.getElementById('sub-msg');el.textContent=t;el.className='sub-msg'+(e?' err':'');}
+
+// ===== GOOGLE CALENDAR =====
+function addToCalendar(){
+  const title=encodeURIComponent('Baby Shower 🍼 Kevin & Kathe 💛');
+  const details=encodeURIComponent(
+    '🎀 Baby Shower de Kevin & Kathe\n\n'+
+    '📍 Salón Comunal Solsticio 4\n'+
+    '   Calle 14b # 119a-76, Bogotá\n\n'+
+    '👨 Hombres: traen pañales (Etapa 1 a 3)\n'+
+    '👩 Mujeres: traen pañitos húmedos\n\n'+
+    '🎮 Juegos, actividades, torta y sorpresas\n'+
+    '👗 Colores pasteles o blanco\n\n'+
+    'Con amor ❤ Kevin & Kathe'
+  );
+  const loc=encodeURIComponent('Calle 14b #119a-76, Bogotá, Colombia');
+  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260816T150000/20260816T190000&details=${details}&location=${loc}&sf=true&output=xml`;
+  window.open(url,'_blank');
+}
+
+// ===== MUSIC — assets/musica.mp3 =====
+const bgMusic = new Audio('assets/musica.mp3');
+bgMusic.loop   = true;
+bgMusic.volume = 0.55;
+let isPlaying  = false;
+
+function startMusic(){
+  bgMusic.play().then(()=>{
+    isPlaying = true;
+  }).catch(e => {
+    // Autoplay bloqueado por el navegador — el usuario deberá pulsar el botón
+    console.warn('Autoplay bloqueado:', e);
+    isPlaying = false;
+    document.getElementById('mn').classList.add('off');
+    document.getElementById('mt2').textContent = '▶ Reproducir';
+    document.getElementById('mti').textContent = '▶';
+  });
+}
+
+function toggleMusic(){
+  const mn  = document.getElementById('mn');
+  const mt2 = document.getElementById('mt2');
+  const mti = document.getElementById('mti');
+  if(isPlaying){
+    bgMusic.pause();
+    isPlaying = false;
+    mn.classList.add('off');
+    mt2.textContent = 'Reproducir ♫';
+    mti.textContent = '▶';
+  } else {
+    bgMusic.play();
+    isPlaying = true;
+    mn.classList.remove('off');
+    mt2.textContent = 'Música suave ♫';
+    mti.textContent = '⏸';
+  }
+}
+</script>
+</body>
+</html>
