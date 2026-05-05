@@ -299,9 +299,9 @@ footer strong{color:var(--ocre-l)}
       <div class="ab" onclick="animalClick(this,'¡Bienvenido/a al safari! 🌿')">🦒</div>
       <div class="ab" onclick="animalClick(this,'¡Pío pío, bebé en camino! 🐣')">🐣</div>
       <div class="ab" onclick="animalClick(this,'¡Rugido de amor! 🧡')">🦁</div>
-      <div class="ab" onclick="animalClick(this,'¡Hop hop, saltando de emocion! 🌸')">🐰</div>
+      <div class="ab" onclick="animalClick(this,'¡Hop hop, qué noticia! 🌸')">🐰</div>
     </div>
-    <p class="hero-tag"> Haz Clic sobre los animales </p>
+
     <p class="hero-tag">🌿 Con todo nuestro amor 🌿</p>
     <h1 class="hero-title">Baby Shower</h1>
     <p class="hero-sub">¡Nuestro bebé está en camino!</p>
@@ -320,7 +320,7 @@ footer strong{color:var(--ocre-l)}
   <!-- COUNTDOWN -->
   <section class="cd-section">
     <div class="sh">
-      <p class="sl">⌛ Ya falta poco</p>
+      <p class="sl">⏰ Ya falta poco</p>
       <h2 class="st">Cuenta <span>Regresiva</span></h2>
     </div>
     <div id="cd-wrap">
@@ -343,17 +343,17 @@ footer strong{color:var(--ocre-l)}
       <h3>¡La entrada tiene un toque especial! 👶🏻</h3>
       <div class="entry-grid">
         <div class="entry-item">
-          <span class="entry-ico">👨🏻‍🦱</span>
+          <span class="entry-ico">🧔🏻👩🏻‍🦰</span>
           <div>
-            <div class="entry-title">Hombres traen Pañales</div>
-            <div class="entry-desc">Pañales de cualquier etapa, desde <strong>Etapa 1 hasta Etapa 3</strong>.<br>¡Cualquier marca es bienvenida!</div>
+            <div class="entry-title">Adultos traen</div>
+            <div class="entry-desc">🍼 <strong>Pañales</strong> (Etapa 1 a 3, cualquier marca)<br>🧻 <strong>Pañitos húmedos</strong> para bebé<br>¡Cada adulto trae ambas cositas!</div>
           </div>
         </div>
         <div class="entry-item">
-          <span class="entry-ico">👩🏻‍🦰</span>
+          <span class="entry-ico">👶🏻</span>
           <div>
-            <div class="entry-title">Mujeres traen Pañitos</div>
-            <div class="entry-desc">Pañitos húmedos para bebé.<br>¡Nunca sobran y siempre son necesarios!</div>
+            <div class="entry-title">Niños traen</div>
+            <div class="entry-desc">🧻 <strong>Pañitos húmedos</strong> para bebé.<br>¡Los pequeños también hacen parte de esta celebración especial!</div>
           </div>
         </div>
       </div>
@@ -366,7 +366,7 @@ footer strong{color:var(--ocre-l)}
       <p class="sl">🎁 Con cariño</p>
       <h2 class="st">Lista de <span>Regalos</span></h2>
     </div>
-    <div class="gift-note">💛 Haz clic en el regalo que quieras traer, escribe tu nombre y quedará reservado para ti.<br>¡Te Agradecemos de corazon por el amor que le tienes a nuestro Bebé!</div>
+    <div class="gift-note">💛 Haz clic en el regalo que quieras traer, escribe tu nombre y quedará reservado para ti.<br>¡Los regalos tomados se bloquean para que nadie más los escoja!</div>
     <div id="gifts-c"></div>
   </section>
 
@@ -407,6 +407,7 @@ footer strong{color:var(--ocre-l)}
         <div class="game-title">El Nombre misterioso</div>
         <div class="game-desc">¿Puedes adivinar el nombre del bebé solo con sus letras? El que acierte gana el premio especial. ¡Más divertido de lo que parece! 😂</div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -457,18 +458,20 @@ footer strong{color:var(--ocre-l)}
           <div class="fg"><label class="fl">Tu nombre</label><input class="fi2" id="fn" type="text" placeholder="María García"></div>
           <div class="fg"><label class="fl">Familia / Grupo</label><input class="fi2" id="ff" type="text" placeholder="Familia Rodríguez"></div>
         </div>
-        <div class="form-row c2">
+        <div class="form-row">
           <div class="fg"><label class="fl">WhatsApp (opcional)</label><input class="fi2" id="fp" type="tel" placeholder="+57 300 000 0000"></div>
-          <div class="fg"><label class="fl">¿Cuántas personas?</label><input class="fi2" id="fg2" type="number" min="1" max="10" placeholder="1"></div>
+        </div>
+        <div class="form-row c2">
+          <div class="fg"><label class="fl">🧔🏻👩🏻‍🦰 Adultos que asisten</label><input class="fi2" id="fg-adults" type="number" min="0" max="20" placeholder="0"></div>
+          <div class="fg"><label class="fl">👶🏻 Niños que asisten</label><input class="fi2" id="fg-kids" type="number" min="0" max="20" placeholder="0"></div>
         </div>
         <p class="fl" style="margin-bottom:9px">¿Confirmas tu asistencia?</p>
-        <div class="atopts">
+        <div class="atopts" style="grid-template-columns:1fr 1fr">
           <div class="ao sel" data-v="Sí voy 🎉" onclick="selAt(this)"><span class="ao-i">🎉</span><span class="ao-l">¡Sí voy!</span></div>
-          <div class="ao" data-v="Tal vez 🤔" onclick="selAt(this)"><span class="ao-i">🤔</span><span class="ao-l">Tal vez</span></div>
-          <div class="ao" data-v="No podré 🙇🏻‍♂️" onclick="selAt(this)"><span class="ao-i">🙇🏻‍♂️</span><span class="ao-l">No podré</span></div>
+          <div class="ao" data-v="No podré 😢" onclick="selAt(this)"><span class="ao-i">😢</span><span class="ao-l">No podré</span></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label class="fl">Mensaje para Kevin &amp; Kathe</label><textarea class="fi2" id="fm" rows="3" placeholder="Escríbeles algo bonito 💛" style="resize:none"></textarea></div>
+          <div class="fg"><label class="fl">Mensaje para Kevin &amp; Kathe</label><textarea class="fi2" id="fm" rows="3" placeholder="Escríbenos algo bonito 💛" style="resize:none"></textarea></div>
         </div>
         <button class="sub-btn" id="sub-btn" onclick="submitForm()">✨ Confirmar Asistencia ✨</button>
         <p class="sub-note">Al confirmar podrás agregar el evento a tu Google Calendar 📅</p>
@@ -526,13 +529,13 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyg4TYLFOnWR3MWszbHM
 
 // ===== FLOATING EMOJIS =====
 (function(){
-  const emojis=['🍼','🎀','👶','🌟','🍭','🎈','🌸','🐥','⭐','🌈','🧸','🍬','💛','🌻','🎁','🦋','🐣','🌷','✨','🎊','🐘','🐰','🦒','🐣','💫'];
+  const emojis=['🍼','👶🏻','🌟','🍭','🎈','🚙','🐥','⭐','🦁','🧸','🍬','💛','🌲','🎁','🙊','🐣','💙','✨','🎊','🐘','🐰','🦒','🐣','💫'];
   const bg=document.getElementById('floaty-bg');
   for(let i=0;i<30;i++){
     const el=document.createElement('div');
     el.className='floaty';
     el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    const size=16+Math.random()*16;
+    const size=25+Math.random()*16;
     el.style.cssText=`left:${Math.random()*100}%;font-size:${size}px;animation-delay:${Math.random()*16}s;animation-duration:${10+Math.random()*10}s;`;
     bg.appendChild(el);
   }
@@ -638,21 +641,19 @@ function openEnvelope(){
 // slots: número de familias que pueden escoger ese regalo
 // reservations: array con los nombres de quienes ya reservaron
 const gifts=[
-  {id:"g1",  icon:"🎒", name:"Cobija para el bebé y pijama", slots:3, reservations:[]},
-  {id:"g2",  icon:"🛻", name:"Coche / Cochecito",            slots:1, reservations:[]},
-  {id:"g3",  icon:"🛏", name:"Colecho / Moisés",             slots:1, reservations:[]},
-  {id:"g4",  icon:"🛁", name:"Tina / Bañera para bebé",      slots:1, reservations:[]},
-  {id:"g5",  icon:"👶", name:"Ropa recién nacido (0-3 m)",   slots:4, reservations:[]},
-  {id:"g6",  icon:"👕", name:"Ropa bebé (3-6 meses)",        slots:4, reservations:[]},
-  {id:"g7",  icon:"👗", name:"Ropa bebé (6-9 meses)",        slots:4, reservations:[]},
-  {id:"g8",  icon:"🧴", name:"Kit de aseo e higiene bebé",   slots:1, reservations:[]},
-  {id:"g9",  icon:"🍼", name:"Set de biberones anticólico",  slots:1, reservations:[]},
-  {id:"g10", icon:"🌡", name:"Termómetro digital + báscula", slots:1, reservations:[]},
-  {id:"g11", icon:"🛌🏻", name:"Almohada maternidad", slots:1, reservations:[]},
-  {id:"g12", icon:"🍼", name:"Esterilizador de biberones", slots:1, reservations:[]},
-  {id:"g13", icon:"🤰🏻", name:"Fular o Canguro ergonómico", slots:1, reservations:[]},
+  {id:"g1",  icon:"🎒", name:"Cobija para el bebé y pijama",        slots:3, reservations:[]},
+  {id:"g2",  icon:"🛁", name:"Tina / Bañera para bebé",             slots:1, reservations:[]},
+  {id:"g3",  icon:"🧴", name:"Kit de aseo e higiene bebé",          slots:1, reservations:[]},
+  {id:"g4",  icon:"👶🏻", name:"Ropa recién nacido (0-3 m)",          slots:4, reservations:[]},
+  {id:"g5",  icon:"👕", name:"Ropa bebé (3-6 meses)",               slots:4, reservations:[]},
+  {id:"g6",  icon:"👖", name:"Ropa bebé (6-9 meses)",               slots:4, reservations:[]},
+  {id:"g7",  icon:"🍼", name:"Set de biberones anticólico",         slots:1, reservations:[]},
+  {id:"g8",  icon:"🌡", name:"Termómetro digital + báscula",        slots:1, reservations:[]},
+  {id:"g9",  icon:"🛌🏻", name:"Almohada maternidad",                 slots:1, reservations:[]},
+  {id:"g10", icon:"🍼", name:"Esterilizador de biberones",          slots:1, reservations:[]},
+  {id:"g11", icon:"🤰🏻", name:"Fular o Canguro ergonómico",          slots:1, reservations:[]},
   {id:"g14", icon:"📚", name:"Set de estimulación (Libros/Sonajeros)", slots:1, reservations:[]},
-  {id:"g15", icon:"🏋🏻‍♂️", name:"Gimnasio de actividades / Tapete", slots:1, reservations:[]},
+  {id:"g15", icon:"🏋🏻‍♂️", name:"Gimnasio de actividades / Tapete",   slots:1, reservations:[]},
 ];
 
 let currentGift=null;
@@ -759,7 +760,8 @@ async function submitForm(){
     name,
     family:document.getElementById('ff').value.trim(),
     phone:document.getElementById('fp').value.trim(),
-    guests:document.getElementById('fg2').value.trim()||'1',
+    adults:document.getElementById('fg-adults').value.trim()||'0',
+    kids:document.getElementById('fg-kids').value.trim()||'0',
     attendance:atVal,
     message:document.getElementById('fm').value.trim(),
     timestamp:new Date().toISOString()
