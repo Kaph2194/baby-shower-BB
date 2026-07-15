@@ -3,20 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baby Shower · Kevin & Kathe 💛</title>
+<title>Baby Shower · Kevin & Kathe 💙</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ocre:#c9963a;--ocre-l:#e8c97a;--ocre-p:#fdf3e0;
-  --sage:#8ba888;--sage-p:#eef4ed;
-  --blush:#fdf0ea;--rose:#e8b4a0;
-  --cream:#fdf8f0;
-  --td:#3d2b1f;--tm:#7a6050;--tl:#a89080;
+  /* Paleta VERDE PASTEL — invitación / contenido principal */
+  --ocre:#5f6ca8;--ocre-l:#aecce0;--ocre-p:#dfeff3;
+  --sage:#2f3a6b;--sage-p:#d9f0ed;
+  --blush:#a8f6df;--rose:#c4daf3;
+  --cream:#f4f6fa;
+  --td:#2a2837;--tm:#5a5c6f;--tl:#8e8ea3;
+
+  /* Paleta AZUL PASTEL — pantalla de inicio (sobre) */
+  --env-blue:#5b9bd5;--env-blue-l:#bfe0f7;--env-blue-p:#eaf6fd;
 }
 html{scroll-behavior:smooth}
-body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);overflow-x:hidden;font-size:17px;line-height:1.75}
+body{background:linear-gradient(180deg,var(--cream),var(--ocre-p));font-family:'Nunito',sans-serif;color:var(--td);overflow-x:hidden;font-size:17px;line-height:1.75}
 
 /* ===== FLOATING BABY EMOJIS ===== */
 #floaty-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -31,42 +35,42 @@ body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);ove
 /* ===== ENVELOPE ===== */
 #env-screen{
   position:fixed;inset:0;z-index:1000;
-  background:linear-gradient(145deg,#fdf3e3,#f5ecd8,#edf5ec);
+  background:linear-gradient(145deg,#eaf6fd,#d9edfa,#eaf6fd);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   cursor:pointer;transition:opacity 0.9s ease;
 }
 .env-wrap{animation:floatE 3s ease-in-out infinite}
 @keyframes floatE{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
 .envelope{width:340px;height:230px;position:relative;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.15))}
-.env-base{width:340px;height:230px;background:linear-gradient(160deg,#fdf3e3,#f5e6ce);border-radius:12px;border:2px solid var(--ocre-l);position:absolute;overflow:hidden}
-.env-lt{position:absolute;top:0;left:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-left:170px solid rgba(232,190,110,0.45)}
-.env-rt{position:absolute;top:0;right:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-right:170px solid rgba(220,180,100,0.45)}
-.env-bt{position:absolute;bottom:0;left:0;right:0;border-left:170px solid transparent;border-right:170px solid transparent;border-bottom:115px solid rgba(240,210,140,0.55)}
+.env-base{width:340px;height:230px;background:linear-gradient(160deg,#eaf6fd,#cfe9fa);border-radius:12px;border:2px solid var(--env-blue-l);position:absolute;overflow:hidden}
+.env-lt{position:absolute;top:0;left:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-left:170px solid rgba(91,155,213,0.35)}
+.env-rt{position:absolute;top:0;right:0;border-top:115px solid transparent;border-bottom:115px solid transparent;border-right:170px solid rgba(91,155,213,0.35)}
+.env-bt{position:absolute;bottom:0;left:0;right:0;border-left:170px solid transparent;border-right:170px solid transparent;border-bottom:115px solid rgba(150,200,235,0.5)}
 .env-flap{
   position:absolute;top:0;left:0;right:0;z-index:10;
   width:0;height:0;
-  border-left:170px solid transparent;border-right:170px solid transparent;border-top:130px solid var(--ocre-l);
+  border-left:170px solid transparent;border-right:170px solid transparent;border-top:130px solid var(--env-blue-l);
   transform-origin:top center;transition:transform 0.9s cubic-bezier(0.4,0,0.2,1);
 }
 .env-flap.open{transform:rotateX(-175deg)}
 .env-seal{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:54px;height:54px;background:linear-gradient(135deg,var(--ocre),#d4a840);border-radius:50%;
+  width:54px;height:54px;background:linear-gradient(135deg,var(--env-blue),#8fc4e8);border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-size:26px;z-index:15;
-  box-shadow:0 4px 16px rgba(201,150,58,0.55);animation:sP 2s ease-in-out infinite;
+  box-shadow:0 4px 16px rgba(91,155,213,0.55);animation:sP 2s ease-in-out infinite;
 }
-@keyframes sP{0%,100%{box-shadow:0 4px 16px rgba(201,150,58,0.55)}50%{box-shadow:0 4px 28px rgba(201,150,58,0.85)}}
+@keyframes sP{0%,100%{box-shadow:0 4px 16px rgba(91,155,213,0.55)}50%{box-shadow:0 4px 28px rgba(91,155,213,0.85)}}
 .env-label{text-align:center;margin-top:28px}
-.env-label h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--ocre);font-style:italic;margin-bottom:6px}
+.env-label h1{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--env-blue);font-style:italic;margin-bottom:6px}
 .env-label p{font-size:14px;color:var(--tm);margin-bottom:20px}
 .env-btn{
   display:inline-flex;align-items:center;gap:8px;padding:13px 34px;
-  background:linear-gradient(135deg,var(--ocre),#d4a840);color:white;border:none;border-radius:32px;
+  background:linear-gradient(135deg,var(--env-blue),#8fc4e8);color:white;border:none;border-radius:32px;
   font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;
-  box-shadow:0 6px 20px rgba(201,150,58,0.5);animation:bP 2.5s ease infinite;transition:transform 0.2s;
+  box-shadow:0 6px 20px rgba(91,155,213,0.5);animation:bP 2.5s ease infinite;transition:transform 0.2s;
 }
 .env-btn:hover{transform:scale(1.04)}
-@keyframes bP{0%,100%{box-shadow:0 6px 20px rgba(201,150,58,0.5)}50%{box-shadow:0 6px 32px rgba(201,150,58,0.75)}}
+@keyframes bP{0%,100%{box-shadow:0 6px 20px rgba(91,155,213,0.5)}50%{box-shadow:0 6px 32px rgba(91,155,213,0.75)}}
 
 /* ===== MAIN ===== */
 #main-page{display:none;position:relative;z-index:1}
@@ -80,18 +84,28 @@ body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);ove
 
 .animals-row{display:flex;gap:18px;margin-bottom:28px;flex-wrap:wrap;justify-content:center}
 .ab{
-  width:68px;height:68px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:32px;
+  width:200px;height:100px;border-radius:70%;
+  display:flex;align-items:center;justify-content:center;
   cursor:pointer;border:2px solid transparent;
-  position:relative;transition:transform 0.2s;
+  position:relative;transition:transform 0.2s;padding:8px;
 }
-.ab:nth-child(1){background:linear-gradient(135deg,#fce4ec,#f8bbd9);border-color:#f0a8c0;animation:aF 3.5s ease-in-out infinite 0s}
-.ab:nth-child(2){background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#a5d6a7;animation:aF 3.5s ease-in-out infinite 0.5s}
-.ab:nth-child(3){background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:#90caf9;animation:aF 3.5s ease-in-out infinite 1s}
-.ab:nth-child(4){background:linear-gradient(135deg,#fff8e1,#ffe082);border-color:#ffd54f;animation:aF 3.5s ease-in-out infinite 1.5s}
-.ab:nth-child(5){background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-color:#ce93d8;animation:aF 3.5s ease-in-out infinite 2s}
+.ab img{width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.12))}
+.ab:nth-child(1){background:linear-gradient(135deg,#eef7f0,#d9f0dd);border-color:var(--ocre-l);animation:aF 3.5s ease-in-out infinite 0s}
+.ab:nth-child(2){background:linear-gradient(135deg,#fff6ea,#ffe9c7);border-color:#9af3d5;animation:aF 3.5s ease-in-out infinite 0.5s}
+.ab:nth-child(3){background:linear-gradient(135deg,#fff1ea,#ffd9c2);border-color:#8cf3ea;animation:aF 3.5s ease-in-out infinite 1s}
+.ab:nth-child(4){background:linear-gradient(135deg,#eaf6fd,#d3ecfa);border-color:var(--env-blue-l);animation:aF 3.5s ease-in-out infinite 1.5s}
+.ab:nth-child(5){background:linear-gradient(135deg,#f5f0ea,#e6dcc9);border-color:#b1a8d8;animation:aF 3.5s ease-in-out infinite 2s}
 @keyframes aF{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
 .ab:active{transform:scale(1.4) rotate(15deg)!important}
+
+/* ===== SAFARI MASCOTS (decorativos) ===== */
+.mascot{position:absolute;pointer-events:none;user-select:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.1));animation:mascotFloat 4s ease-in-out infinite}
+@keyframes mascotFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+.sh{position:relative}
+.sh .mascot{width:300px;top:-46px}
+.sh .mascot.left{left:6%}
+.sh .mascot.right{right:6%}
+@media(max-width:640px){.sh .mascot{display:none}}
 
 .ab-bubble{
   display:none;position:absolute;bottom:76px;left:50%;transform:translateX(-50%);
@@ -190,12 +204,12 @@ body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);ove
 
 /* ===== CONFIRM ===== */
 .confirm-bg{background:linear-gradient(135deg,var(--blush),var(--ocre-p),var(--sage-p));padding:70px 20px}
-.confirm-card{background:white;border-radius:26px;max-width:540px;margin:0 auto;padding:38px 34px;box-shadow:0 12px 44px rgba(0,0,0,0.09);border:1.5px solid rgba(232,201,122,0.3)}
+.confirm-card{background:white;border-radius:26px;max-width:540px;margin:0 auto;padding:38px 34px;box-shadow:0 12px 44px rgba(0,0,0,0.09);border:1.5px solid rgba(183, 122, 232, 0.3)}
 .form-row{display:grid;gap:14px;margin-bottom:14px}
 .form-row.c2{grid-template-columns:1fr 1fr}
 .fg{display:flex;flex-direction:column;gap:6px}
 .fl{font-size:14px;font-weight:700;color:var(--tm);letter-spacing:1px;text-transform:uppercase}
-.fi2{padding:14px 16px;border:1.5px solid rgba(201,150,58,0.25);border-radius:11px;font-family:'Nunito',sans-serif;font-size:16px;color:var(--td);background:white;outline:none;transition:border-color 0.22s,box-shadow 0.22s;-webkit-appearance:none}
+.fi2{padding:14px 16px;border:1.5px solid rgba(125, 58, 201, 0.25);border-radius:11px;font-family:'Nunito',sans-serif;font-size:16px;color:var(--td);background:white;outline:none;transition:border-color 0.22s,box-shadow 0.22s;-webkit-appearance:none}
 .fi2:focus{border-color:var(--ocre);box-shadow:0 0 0 3px rgba(201,150,58,0.1)}
 .atopts{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
 .ao{padding:13px 6px;text-align:center;border:1.5px solid rgba(201,150,58,0.25);border-radius:13px;cursor:pointer;transition:all 0.22s;background:white}
@@ -203,7 +217,7 @@ body{background:var(--cream);font-family:'Nunito',sans-serif;color:var(--td);ove
 .ao.sel .ao-l{color:var(--ocre)}
 .ao-i{font-size:28px;display:block;margin-bottom:4px}
 .ao-l{font-size:14px;font-weight:600;color:var(--tm)}
-.sub-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--ocre),#d4a840);color:white;border:none;border-radius:17px;font-family:'Cormorant Garamond',serif;font-size:26px;font-style:italic;cursor:pointer;box-shadow:0 7px 22px rgba(201,150,58,0.4);transition:all 0.28s;margin-top:6px}
+.sub-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--ocre),#ab77ee);color:white;border:none;border-radius:17px;font-family:'Cormorant Garamond',serif;font-size:26px;font-style:italic;cursor:pointer;box-shadow:0 7px 22px rgba(201,150,58,0.4);transition:all 0.28s;margin-top:6px}
 .sub-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(201,150,58,0.5)}
 .sub-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
 .sub-note{text-align:center;font-size:14px;color:var(--tl);margin-top:10px;line-height:1.6;font-style:italic}
@@ -295,11 +309,11 @@ footer strong{color:var(--ocre-l)}
     <div class="hero-stripe"></div>
 
     <div class="animals-row">
-      <div class="ab" onclick="animalClick(this,'¡Gran abrazo elefantil! 🤍')">🐘</div>
-      <div class="ab" onclick="animalClick(this,'¡Bienvenido/a al safari! 🌿')">🦒</div>
-      <div class="ab" onclick="animalClick(this,'¡Pío pío, bebé en camino! 🐣')">🐣</div>
-      <div class="ab" onclick="animalClick(this,'¡Rugido de amor! 🧡')">🦁</div>
-      <div class="ab" onclick="animalClick(this,'¡Hop hop, saltando de alegria! 🌸')">🐰</div>
+      <div class="ab" onclick="animalClick(this,'¡Gran abrazo elefantil! 🤍')"><img src="assets/elephant.png" alt="Elefante"></div>
+      <div class="ab" onclick="animalClick(this,'¡Bienvenido/a al safari! 🌿')"><img src="assets/giraffe_monkey.png" alt="Jirafa y mono"></div>
+      <div class="ab" onclick="animalClick(this,'¡Pío pío, bebé en camino! 🐧')"><img src="assets/penguin.png" alt="Pingüino"></div>
+      <div class="ab" onclick="animalClick(this,'¡Rugido de amor! 🧡')"><img src="assets/lion.png" alt="León"></div>
+      <div class="ab" onclick="animalClick(this,'¡Trotando de alegría! 🌸')"><img src="assets/zebra.png" alt="Cebra"></div>
     </div>
 
     <p class="hero-tag">da clic en cualquier animal</p>
@@ -309,7 +323,7 @@ footer strong{color:var(--ocre-l)}
 
     <div class="date-chips">
       <div class="dc"><div class="dc-ico">📅</div><span class="dc-v">16 Agosto</span><span class="dc-l">Fecha</span></div>
-      <div class="dc"><div class="dc-ico">🕒</div><span class="dc-v">3:00 PM</span><span class="dc-l">Hora</span></div>
+      <div class="dc"><div class="dc-ico">🕒</div><span class="dc-v">2:00 PM</span><span class="dc-l">Hora</span></div>
       <div class="dc"><div class="dc-ico">💙</div><span class="dc-v">2026</span><span class="dc-l">Año</span></div>
     </div>
 
@@ -341,7 +355,7 @@ footer strong{color:var(--ocre-l)}
       <h2 class="st" style="color:#92400e">¿Cómo <span style="color:#d97706">entrar?</span></h2>
     </div>
     <div class="entry-banner">
-      <h3>¡La entrada tiene un toque especial! 🧸</h3>
+      <h3>¡La entrada tiene un toque especial! <img src="assets/fox.png" alt="Zorrito"></h3>
       <div class="entry-grid">
         <div class="entry-item">
           <span class="entry-ico">🧔🏻👩🏻‍🦰</span>
@@ -364,10 +378,11 @@ footer strong{color:var(--ocre-l)}
   <!-- GIFTS -->
   <section class="sec">
     <div class="sh">
-      <p class="sl">🎁 Con cariño</p>
+      <img class="mascot right" src="assets/penguin.png" alt="Zorrito">
+      <p class="sl">🎁 Con cariño · <em style="font-style:italic;color:var(--sage)">100% opcional</em></p>
       <h2 class="st">Lista de <span>Regalos</span></h2>
     </div>
-    <div class="gift-note">💛 Haz clic en el regalo que quieras traer, escribe tu nombre y quedará reservado para ti.<br>¡Escoje lo que prefieras, los 3 te lo agradecemos de ❤️!</div>
+    <div class="gift-note">💚 Esta lista es totalmente <strong>opcional</strong> — tu presencia es el mejor regalo. Si deseas colaborar, haz clic en el regalo que quieras traer, escribe tu nombre y quedará reservado para ti.<br>¡Escoge lo que prefieras, lo que sea será recibido con mucho amor! 🦁</div>
     <div id="gifts-c"></div>
   </section>
 
@@ -384,9 +399,9 @@ footer strong{color:var(--ocre-l)}
         <div class="game-desc">Trivia sobre Kathe: sus gustos, miedos de mamá primeriza y secretos que solo sus más cercanos conocen. ¡El que más acierte gana!</div>
       </div>
       <div class="game-card">
-        <div class="game-ico">🎨</div>
-        <div class="game-title">Decora el body del bebé</div>
-        <div class="game-desc">Cada familia decorará un body blanco con pinturas de colores y marcadores textiles. ¡El bebé tendrá ropa hecha con amor!</div>
+        <div class="game-ico">🥊</div>
+        <div class="game-title">Papas de acuerdo</div>
+        <div class="game-desc">Vamos a ver cuanto estan de acuerdo papá y mamá al momento de elegir las tareas del hogar y del cuidado del bebé. ¿Sera que estan conectados?</div>
       </div>
       <div class="game-card">
         <div class="game-ico">🤰🏻</div>
@@ -419,24 +434,17 @@ footer strong{color:var(--ocre-l)}
       <h2 class="st">¿Dónde <span>será?</span></h2>
     </div>
     <div class="map-card">
-      <!-- Mapa via OpenStreetMap — sin API key, funciona siempre -->
       <div class="map-embed-wrap">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5109977380807!2d-74.16840712418676!3d4.680876641827364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9de4803e836b%3A0x8d07be966d588b9a!2sSolsticio%20Etapa%204!5e0!3m2!1ses-419!2sco!4v1777929945233!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-          loading="lazy"
-          title="Salón Comunal Solsticio 4"
-          style="width:100%;height:100%;border:none">
-        </iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2446.4976119543276!2d-74.15249779655707!3d4.677628082534553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9cf2138232cd%3A0x388f0b0e67c50f3e!2sConjunto%20Residencial%20Montecarlo%20Porter%C3%ADa%203!5e1!3m2!1ses-419!2sco!4v1784131487026!5m2!1ses-419!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <div class="loc-info">
-        <div class="loc-title">Salón Comunal Solsticio 4</div>
+        <div class="loc-title">Salón Comunal · Conjunto Montecarlo 3</div>
         <div class="loc-addr">
-          📌 Calle 14b # 119a-76, Bogotá, Colombia<br>
-          <a href="https://maps.google.com/?q=Calle+14b+119a-76+Bogota" target="_blank" style="color:var(--sage);font-size:13px;text-decoration:none">🗺 Abrir en Google Maps →</a>
+          📌 Diagonal 16H # 108-80, Bogotá, Colombia<br>
+          <a href="https://maps.google.com/?q=Diagonal+16H+%23+108-80+Bogota" target="_blank" style="color:var(--sage);font-size:13px;text-decoration:none">🗺 Abrir en Google Maps →</a>
         </div>
         <div class="loc-notes">
-          <div class="np"><span class="np-i">🕑</span> Puertas abren a las 2:30 PM</div>
+          <div class="np"><span class="np-i">🕑</span> De 2:00 PM a 6:00 PM</div>
           <div class="np"><span class="np-i">🧍🏻‍♀️🧍🏻‍♂️</span> Colores pasteles o blanco</div>
           <div class="np"><span class="np-i">🚌</span> Puedes Llegar en SITP, Alimentador o Taxi, colocando el nombre del conjunto en Waze</div>
           <div class="np"><span class="np-i">🍰</span> Torta incluida</div>
@@ -450,13 +458,15 @@ footer strong{color:var(--ocre-l)}
   <!-- CONFIRM -->
   <section class="confirm-bg">
     <div class="sh">
-      <p class="sl">✉ Cuéntanos</p>
+      <img class="mascot left" src="assets/hippo.png" alt="Hipopótamo">
+      <p class="sl">✉ Cuéntanos · <em style="font-style:italic;color:#a13d2f">Aqui</em></p>
       <h2 class="st" style="color:var(--td)">¿Nos <span>acompañas?</span></h2>
     </div>
     <div class="confirm-card">
+      <p style="text-align:center;font-size:14px;color:var(--tm);margin-bottom:18px;background:var(--sage-p);border-radius:12px;padding:10px 14px">📋 Por favor confirma tu asistencia antes del evento, es <strong>indispensable</strong> para organizar todo con amor.</p>
       <div id="form-area">
         <div class="form-row c2">
-          <div class="fg"><label class="fl">Tu nombre</label><input class="fi2" id="fn" type="text" placeholder="María García"></div>
+          <div class="fg"><label class="fl">Tu nombre *</label><input class="fi2" id="fn" type="text" placeholder="María García" required></div>
           <div class="fg"><label class="fl">Familia / Grupo</label><input class="fi2" id="ff" type="text" placeholder="Familia Rodríguez"></div>
         </div>
         <div class="form-row">
@@ -482,8 +492,8 @@ footer strong{color:var(--ocre-l)}
         <div class="suc-i">😘💕</div>
         <div class="suc-t">¡Gracias, te esperamos!</div>
         <p class="suc-p">Kevin &amp; Kathe están muy felices de que los acompañes.<br><br>
-          Nos vemos el <strong>16 de Agosto 2026 a las 3:00 PM</strong> 💛<br>
-          Salón Comunal Solsticio 4 · Calle 14b # 119a-76</p>
+          Nos vemos el <strong>16 de Agosto 2026, de 2:00 PM a 6:00 PM</strong> 💛<br>
+          Conjunto Montecarlo 3 · Salón Comunal · Diagonal 16H # 108-80</p>
         <button class="cal-btn" onclick="addToCalendar()">📅&nbsp; Agregar a Google Calendar</button>
         <p style="font-size:12px;color:var(--tl);margin-top:10px;font-style:italic">Se abrirá en una nueva pestaña</p>
       </div>
@@ -493,7 +503,7 @@ footer strong{color:var(--ocre-l)}
   <footer>
     <div>🌿 &nbsp; Con todo nuestro amor &nbsp; 🌿</div>
     <div><strong>Kevin &amp; Kathe</strong></div>
-    <div>Baby Shower · 16 de Agosto 2026 · 3:00 PM</div>
+    <div>Baby Shower · 16 de Agosto 2026 · 2:00 PM a 6:00 PM</div>
     <div style="margin-top:10px;font-size:11px;opacity:0.4">Diseñado con ❤ para nuestro bebé</div>
   </footer>
 </div>
@@ -578,8 +588,8 @@ function animalClick(el, msg){
 
 // ===== COUNTDOWN — se inicia al abrir el sobre =====
 function startCountdown(){
-  // Fecha: 16 agosto 2026, 3:00 PM, hora Colombia (UTC-5)
-  const target = new Date('2026-08-16T15:00:00-05:00').getTime();
+  // Fecha: 16 agosto 2026, 2:00 PM, hora Colombia (UTC-5)
+  const target = new Date('2026-08-16T14:00:00-05:00').getTime();
 
   function tick(){
     const now = Date.now();
@@ -717,7 +727,7 @@ function pickGift(i){
   document.getElementById('gm-name').textContent=item.name;
   document.getElementById('gm-sub').textContent=multi
     ? `Quedan ${avail} de ${item.slots} cupos disponibles 👕`
-    : '¡Tu nombre quedará registrado en la lista! 💛';
+    : '¡Tu nombre quedará registrado en la lista! 💕';
   document.getElementById('gm-inp').value='';
   document.getElementById('gm-st').textContent='';
   document.getElementById('gm').classList.add('open');
@@ -726,10 +736,10 @@ function closeGM(){document.getElementById('gm').classList.remove('open');curren
 
 async function confirmGift(){
   const name=document.getElementById('gm-inp').value.trim();
-  if(!name){alert('Por favor escribe tu nombre o familia 💛');return;}
+  if(!name){alert('Por favor escribe tu nombre o familia 💙');return;}
   // Evitar doble reserva del mismo nombre en el mismo regalo
   if(gifts[currentGift].reservations.includes(name)){
-    alert('¡Ya reservaste este regalo! 💛');return;
+    alert('¡Ya reservaste este regalo! 💕');return;
   }
   const btn=document.getElementById('gm-ok');
   btn.disabled=true; btn.textContent='Guardando...';
@@ -753,7 +763,7 @@ function selAt(el){
 }
 async function submitForm(){
   const name=document.getElementById('fn').value.trim();
-  if(!name){showMsg('Por favor escribe tu nombre 💛',true);return;}
+  if(!name){showMsg('Por favor escribe tu nombre 💙',true);return;}
   const btn=document.getElementById('sub-btn');
   btn.disabled=true;btn.textContent='Enviando...';
   const payload={
@@ -777,19 +787,19 @@ function showMsg(t,e){const el=document.getElementById('sub-msg');el.textContent
 
 // ===== GOOGLE CALENDAR =====
 function addToCalendar(){
-  const title=encodeURIComponent('Baby Shower 🍼 Kevin & Kathe 💛');
+  const title=encodeURIComponent('Baby Shower 🍼 Kevin & Kathe 💚');
   const details=encodeURIComponent(
     '🎀 Baby Shower de Kevin & Kathe\n\n'+
-    '📍 Salón Comunal Solsticio 4\n'+
-    '   Calle 14b # 119a-76, Bogotá\n\n'+
+    '📍 Salón Comunal · Conjunto Residencial Montecarlo 3\n'+
+    '   Diagonal 16H # 108-80, Bogotá\n\n'+
     '👨 Hombres: traen pañales (Etapa 1 a 3)\n'+
     '👩 Mujeres: traen pañitos húmedos\n\n'+
     '🎮 Juegos, actividades, torta y sorpresas\n'+
     '👗 Colores pasteles o blanco\n\n'+
     'Con amor ❤ Kevin & Kathe'
   );
-  const loc=encodeURIComponent('Calle 14b #119a-76, Bogotá, Colombia');
-  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260816T150000/20260816T190000&details=${details}&location=${loc}&sf=true&output=xml`;
+  const loc=encodeURIComponent('Diagonal 16H # 108-80, Bogotá, Colombia');
+  const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260816T140000/20260816T180000&details=${details}&location=${loc}&sf=true&output=xml`;
   window.open(url,'_blank');
 }
 
