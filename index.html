@@ -150,10 +150,11 @@ body{background:linear-gradient(180deg,var(--cream),var(--ocre-p));font-family:'
 .entry-banner{
   background:linear-gradient(135deg,#fef3c7,#fde68a,#fef3c7);
   border:2px solid #f59e0b;border-radius:20px;
-  padding:28px 32px;margin:0 auto 32px;max-width:680px;text-align:center;
+  padding:28px 32px;margin:0 auto 350px;max-width:680px;text-align:center;
   box-shadow:0 4px 20px rgba(245,158,11,0.2);
 }
-.entry-banner h3{font-family:'Cormorant Garamond',serif;font-size:30px;color:#92400e;font-style:italic;margin-bottom:16px}
+.entry-banner h3{font-family:'Cormorant Garamond',serif;font-size:30px;color:#92400e;font-style:italic;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.entry-banner h3 img{width:450px;height:450px;object-fit:contain}
 .entry-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left}
 .entry-item{background:white;border-radius:14px;padding:14px 18px;display:flex;align-items:flex-start;gap:10px;border:1px solid rgba(245,158,11,0.3)}
 .entry-ico{font-size:26px;margin-top:2px}
@@ -182,14 +183,6 @@ body{background:linear-gradient(180deg,var(--cream),var(--ocre-p));font-family:'
 .gr-slot-name{font-size:12px;color:var(--sage);background:var(--sage-p);border:1px solid rgba(139,168,136,0.3);border-radius:20px;padding:2px 10px;font-style:italic}
 .gr-progress{height:5px;background:#eee;border-radius:4px;margin-top:7px;overflow:hidden}
 .gr-progress-bar{height:100%;background:linear-gradient(90deg,var(--sage),var(--ocre-l));border-radius:4px;transition:width 0.4s ease}
-
-/* ===== GAMES ===== */
-.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.game-card{background:white;border-radius:18px;padding:22px;border:1.5px solid rgba(232,201,122,0.25);box-shadow:0 4px 16px rgba(0,0,0,0.05);transition:transform 0.25s,box-shadow 0.25s}
-.game-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.09)}
-.game-ico{font-size:44px;margin-bottom:10px}
-.game-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ocre);font-style:italic;margin-bottom:6px}
-.game-desc{font-size:16px;color:var(--tm);line-height:1.6}
 
 /* ===== MAP ===== */
 .map-card{background:white;border-radius:22px;overflow:hidden;border:1.5px solid rgba(139,168,136,0.3);box-shadow:0 8px 28px rgba(0,0,0,0.07)}
@@ -294,9 +287,9 @@ footer strong{color:var(--ocre-l)}
       <div class="env-seal">💛</div>
     </div>
     <div class="env-label">
-      <h1>¡Tienes una invitación especial!</h1>
-      <p>De parte de Kevin &amp; Kathe con mucho amor</p>
-      <button class="env-btn" onclick="event.stopPropagation();openEnvelope()">✉&nbsp; Abrir sobre</button>
+      <h1>¡Tengo una invitación muy especial para ti!</h1>
+      <p>De mi parte y la de mis papitos Kevin &amp; Kathe, con mucho amor</p>
+      <button class="env-btn" onclick="event.stopPropagation();openEnvelope()">✉&nbsp; Abrir mi sobre</button>
     </div>
   </div>
 </div>
@@ -309,17 +302,17 @@ footer strong{color:var(--ocre-l)}
     <div class="hero-stripe"></div>
 
     <div class="animals-row">
-      <div class="ab" onclick="animalClick(this,'¡Gran abrazo elefantil! 🤍')"><img src="assets/elephant.png" alt="Elefante"></div>
-      <div class="ab" onclick="animalClick(this,'¡Bienvenido/a al safari! 🌿')"><img src="assets/giraffe_monkey.png" alt="Jirafa y mono"></div>
-      <div class="ab" onclick="animalClick(this,'¡Pío pío, bebé en camino! 🐧')"><img src="assets/penguin.png" alt="Pingüino"></div>
-      <div class="ab" onclick="animalClick(this,'¡Rugido de amor! 🧡')"><img src="assets/lion.png" alt="León"></div>
-      <div class="ab" onclick="animalClick(this,'¡Trotando de alegría! 🌸')"><img src="assets/zebra.png" alt="Cebra"></div>
+      <div class="ab" onclick="animalClick(this,'¡Te mando un gran abrazo elefantil! 🤍')"><img src="assets/elephant.png" alt="Elefante"></div>
+      <div class="ab" onclick="animalClick(this,'¡Bienvenido/a a mi safari! 🌿')"><img src="assets/giraffe_monkey.png" alt="Jirafa y mono"></div>
+      <div class="ab" onclick="animalClick(this,'¡Pío pío, ya casi llego! 🐧')"><img src="assets/penguin.png" alt="Pingüino"></div>
+      <div class="ab" onclick="animalClick(this,'¡Te rujo con mucho amor! 🧡')"><img src="assets/lion.png" alt="León"></div>
+      <div class="ab" onclick="animalClick(this,'¡Vengo trotando de alegría! 🌸')"><img src="assets/zebra.png" alt="Cebra"></div>
     </div>
 
-    <p class="hero-tag">da clic en cualquier animal</p>
-    <p class="hero-tag">🌿 Con todo nuestro amor 🌿</p>
+    <p class="hero-tag">dale clic a cualquier animalito, ¡me encanta jugar!</p>
+    <p class="hero-tag">🌿 Con todo mi amor 🌿</p>
     <h1 class="hero-title">Baby Shower</h1>
-    <p class="hero-sub">¡Nuestro bebé está en camino!</p>
+    <p class="hero-sub">¡Ya estoy en camino!</p>
 
     <div class="date-chips">
       <div class="dc"><div class="dc-ico">📅</div><span class="dc-v">16 Agosto</span><span class="dc-l">Fecha</span></div>
@@ -328,14 +321,14 @@ footer strong{color:var(--ocre-l)}
     </div>
 
     <div class="hero-hosts">
-      Te invitan con amor · <strong>Kevin &amp; Kathe</strong> · a celebrar a nuestro bebé 💛
+      Mis papitos <strong>Kevin &amp; Kathe</strong> te invitan con todo mi amor · a celebrarme a mí 💛
     </div>
   </section>
 
   <!-- COUNTDOWN -->
   <section class="cd-section">
     <div class="sh">
-      <p class="sl">⏰ Ya falta poco</p>
+      <p class="sl">⏰ Ya casi llega mi celebración</p>
       <h2 class="st">Cuenta <span>Regresiva</span></h2>
     </div>
     <div id="cd-wrap">
@@ -352,23 +345,23 @@ footer strong{color:var(--ocre-l)}
   <section style="padding:50px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7)">
     <div class="sh">
       <p class="sl">🎟️ Entrada especial</p>
-      <h2 class="st" style="color:#92400e">¿Cómo <span style="color:#d97706">entrar?</span></h2>
+      <h2 class="st" style="color:#92400e">¿Cómo entrar a <span style="color:#d97706">mi fiesta?</span></h2>
     </div>
     <div class="entry-banner">
-      <h3>¡La entrada tiene un toque especial! <img src="assets/fox.png" alt="Zorrito"></h3>
+      <h3>¡Mi entrada tiene un toque muy especial! <img src="assets/fox.png" alt="Zorrito"></h3>
       <div class="entry-grid">
         <div class="entry-item">
           <span class="entry-ico">🧔🏻👩🏻‍🦰</span>
           <div>
-            <div class="entry-title">Adultos traen</div>
-            <div class="entry-desc">🍼 <strong>Pañales</strong> (Etapa 1 a 3, cualquier marca)<br>🧻 <strong>Pañitos húmedos</strong> para bebé<br>¡Cada adulto trae ambas cositas!</div>
+            <div class="entry-title">Los adultos me traen</div>
+            <div class="entry-desc">🍼 <strong>Pañales</strong> (Etapa 1 a 3, ¡de la marca que prefieran!)<br>🧻 <strong>Pañitos húmedos</strong> para mí<br>¡Cada adulto me trae ambas cositas!</div>
           </div>
         </div>
         <div class="entry-item">
           <span class="entry-ico">👶🏻</span>
           <div>
-            <div class="entry-title">Niños traen</div>
-            <div class="entry-desc">🧻 <strong>Pañitos húmedos</strong> para bebé.<br>¡Los pequeños también hacen parte de esta celebración especial!</div>
+            <div class="entry-title">Los niños me traen</div>
+            <div class="entry-desc">🧻 <strong>Pañitos húmedos</strong> para mí.<br>¡Mis amiguitos pequeños también son parte de mi celebración especial!</div>
           </div>
         </div>
       </div>
@@ -378,60 +371,19 @@ footer strong{color:var(--ocre-l)}
   <!-- GIFTS -->
   <section class="sec">
     <div class="sh">
-      <img class="mascot right" src="assets/penguin.png" alt="Zorrito">
-      <p class="sl">🎁 Con cariño · <em style="font-style:italic;color:var(--sage)">100% opcional</em></p>
+      <img class="mascot right" src="assets/penguin.png" alt="Pingüino">
+      <p class="sl">🎁 Con todo mi cariño · <em style="font-style:italic;color:var(--sage)">100% opcional</em></p>
       <h2 class="st">Lista de <span>Regalos</span></h2>
     </div>
     <div class="gift-note">💚 ¡Tu presencia es mi regalo favorito! Mis papitos me ayudaron a armar esta lista con las cositas que <strong>más voy a necesitar</strong> cuando nazca, pero no es obligatorio que elijas algo de aquí. Si prefieres traerme algún otro detalle que no esté en la lista, ¡está perfecto y lo recibiré con el mismo amor! Por favor, no te sientas presionado ni obligado a nada. Si deseas reservar algo de esta lista, haz clic sobre el regalo, escribe tu nombre y quedará guardado para ti. 🦁</div>
     <div id="gifts-c"></div>
   </section>
 
-  <!-- GAMES -->
-  <section style="background:linear-gradient(135deg,var(--blush),var(--ocre-p));padding:70px 20px">
-    <div class="sh">
-      <p class="sl">🎮 Diversión garantizada</p>
-      <h2 class="st" style="color:var(--td)">Juegos &amp; <span>Actividades</span></h2>
-    </div>
-    <div class="games-grid" style="max-width:880px;margin:0 auto">
-      <div class="game-card">
-        <div class="game-ico">📑</div>
-        <div class="game-title">¿Quién conoce más a mamá?</div>
-        <div class="game-desc">Trivia sobre Kathe: sus gustos, miedos de mamá primeriza y secretos que solo sus más cercanos conocen. ¡El que más acierte gana!</div>
-      </div>
-      <div class="game-card">
-        <div class="game-ico">🥊</div>
-        <div class="game-title">Papas de acuerdo</div>
-        <div class="game-desc">Vamos a ver cuanto estan de acuerdo papá y mamá al momento de elegir las tareas del hogar y del cuidado del bebé. ¿Sera que estan conectados?</div>
-      </div>
-      <div class="game-card">
-        <div class="game-ico">🤰🏻</div>
-        <div class="game-title">Adivina la barriguita</div>
-        <div class="game-desc">Con un trozo de hilo o cinta cada uno calculara cuánto mide la barriga de Kathe. El más cercano gana un premio sorpresa 🎁</div>
-      </div>
-      <div class="game-card">
-        <div class="game-ico">👶🏻</div>
-        <div class="game-title">¿A quién se parecerá?</div>
-        <div class="game-desc">Cada invitado votara si el bebé se parecerá más a Kevin o a Kathe, y describira qué rasgo heredará. ¡Descubriremos quién tenía razón!</div>
-      </div>
-      <div class="game-card">
-        <div class="game-ico">💌</div>
-        <div class="game-title">Carta al bebé</div>
-        <div class="game-desc">Escribiran un mensaje al bebé para que lo lea cuando tenga la edad para hacerlo. Kevin y Kathe guardarán todos los mensajes en una cajita especial.</div>
-      </div>
-      <div class="game-card">
-        <div class="game-ico">🪪</div>
-        <div class="game-title">El Nombre misterioso</div>
-        <div class="game-desc">¿Puedes adivinar el nombre del bebé solo con sus letras? El que acierte gana el premio especial. ¡Más divertido de lo que parece! 😂</div>
-      </div>
-    </div>
-    </div>
-  </section>
-
   <!-- LOCATION -->
   <section class="sec" style="padding-top:70px">
     <div class="sh">
-      <p class="sl">📍 Te esperamos aquí</p>
-      <h2 class="st">¿Dónde <span>será?</span></h2>
+      <p class="sl">📍 Aquí te espero</p>
+      <h2 class="st">¿Dónde será <span>mi fiesta?</span></h2>
     </div>
     <div class="map-card">
       <div class="map-embed-wrap">
@@ -448,7 +400,7 @@ footer strong{color:var(--ocre-l)}
           <div class="np"><span class="np-i">🧍🏻‍♀️🧍🏻‍♂️</span> Colores pasteles o blanco</div>
           <div class="np"><span class="np-i">🚌</span> Puedes Llegar en SITP, Alimentador o Taxi, colocando el nombre del conjunto en Waze</div>
           <div class="np"><span class="np-i">🍰</span> Torta incluida</div>
-          <div class="np"><span class="np-i">🎮</span> Juegos y actividades</div>
+          <div class="np"><span class="np-i">💕</span> Muchas sorpresas para mí y para ti</div>
           <div class="np"><span class="np-i">🎉</span> Una Gran Sorpresa</div>
         </div>
       </div>
@@ -459,11 +411,11 @@ footer strong{color:var(--ocre-l)}
   <section class="confirm-bg">
     <div class="sh">
       <img class="mascot left" src="assets/hippo.png" alt="Hipopótamo">
-      <p class="sl">✉ Cuéntanos · <em style="font-style:italic;color:#a13d2f">Aqui</em></p>
-      <h2 class="st" style="color:var(--td)">¿Nos <span>acompañas?</span></h2>
+      <p class="sl">✉ Cuéntame · <em style="font-style:italic;color:#a13d2f">aquí</em></p>
+      <h2 class="st" style="color:var(--td)">¿Me <span>acompañas?</span></h2>
     </div>
     <div class="confirm-card">
-      <p style="text-align:center;font-size:14px;color:var(--tm);margin-bottom:18px;background:var(--sage-p);border-radius:12px;padding:10px 14px">📋 Por favor confirma tu asistencia antes del evento, es <strong>indispensable</strong> para organizar todo con amor.</p>
+      <p style="text-align:center;font-size:14px;color:var(--tm);margin-bottom:18px;background:var(--sage-p);border-radius:12px;padding:10px 14px">📋 Por favor confírmame tu asistencia antes de mi fiesta, ¡es <strong>indispensable</strong> para que mis papitos organicen todo con mucho amor!</p>
       <div id="form-area">
         <div class="form-row c2">
           <div class="fg"><label class="fl">Tu nombre *</label><input class="fi2" id="fn" type="text" placeholder="María García" required></div>
@@ -476,13 +428,13 @@ footer strong{color:var(--ocre-l)}
           <div class="fg"><label class="fl">🧔🏻👩🏻‍🦰 Adultos que asisten</label><input class="fi2" id="fg-adults" type="number" min="0" max="20" placeholder="0"></div>
           <div class="fg"><label class="fl">👶🏻 Niños que asisten</label><input class="fi2" id="fg-kids" type="number" min="0" max="20" placeholder="0"></div>
         </div>
-        <p class="fl" style="margin-bottom:9px">¿Confirmas tu asistencia?</p>
+        <p class="fl" style="margin-bottom:9px">¿Confirmas que vienes a conocerme?</p>
         <div class="atopts" style="grid-template-columns:1fr 1fr">
           <div class="ao sel" data-v="Sí voy 🎉" onclick="selAt(this)"><span class="ao-i">🎉</span><span class="ao-l">¡Sí voy!</span></div>
           <div class="ao" data-v="No podré 😢" onclick="selAt(this)"><span class="ao-i">😢</span><span class="ao-l">No podré</span></div>
         </div>
         <div class="form-row">
-          <div class="fg"><label class="fl">Mensaje para mis papitos</label><textarea class="fi2" id="fm" rows="3" placeholder="Escríbenos algo bonito 💛" style="resize:none"></textarea></div>
+          <div class="fg"><label class="fl">Mensaje para mí y mis papitos</label><textarea class="fi2" id="fm" rows="3" placeholder="Escríbeme algo bonito 💛" style="resize:none"></textarea></div>
         </div>
         <button class="sub-btn" id="sub-btn" onclick="submitForm()">✨ Confirmar Asistencia ✨</button>
         <p class="sub-note">Al confirmar podrás agregar el evento a tu Google Calendar 📅</p>
@@ -490,8 +442,8 @@ footer strong{color:var(--ocre-l)}
       </div>
       <div class="suc" id="suc-area">
         <div class="suc-i">😘💕</div>
-        <div class="suc-t">¡Gracias, te esperamos!</div>
-        <p class="suc-p">Mis papitos y yo estámos muy felices de que nos acompañes.<br><br>
+        <div class="suc-t">¡Gracias, ya te espero!</div>
+        <p class="suc-p">Mis papitos y yo estamos muy felices de que nos acompañes.<br><br>
           Nos vemos el <strong>16 de Agosto 2026, de 2:00 PM a 6:00 PM</strong> 💛<br>
           Conjunto Montecarlo 3 · Salón Comunal · Diagonal 16H # 108-80</p>
         <button class="cal-btn" onclick="addToCalendar()">📅&nbsp; Agregar a Google Calendar</button>
@@ -501,10 +453,10 @@ footer strong{color:var(--ocre-l)}
   </section>
 
   <footer>
-    <div>🌿 &nbsp; Con todo nuestro amor &nbsp; 🌿</div>
-    <div><strong>Kevin &amp; Kathe</strong></div>
-    <div>Baby Shower · 16 de Agosto 2026 · 2:00 PM a 6:00 PM</div>
-    <div style="margin-top:10px;font-size:11px;opacity:0.4">Diseñado con ❤ para nuestro bebé</div>
+    <div>🌿 &nbsp; Con todo mi amor &nbsp; 🌿</div>
+    <div>Mis papitos, <strong>Kevin &amp; Kathe</strong></div>
+    <div>Mi Baby Shower · 16 de Agosto 2026 · 2:00 PM a 6:00 PM</div>
+    <div style="margin-top:10px;font-size:11px;opacity:0.4">Hecho con mucho amor, esperando mi llegada</div>
   </footer>
 </div>
 
@@ -521,7 +473,7 @@ footer strong{color:var(--ocre-l)}
     <div style="font-size:38px;margin-bottom:10px">🎁</div>
     <div class="mt3">Reservar regalo</div>
     <div class="mg" id="gm-name"></div>
-    <div class="ms" id="gm-sub">Tu nombre quedará visible en la lista. ¡Gracias por tu amor! 💛</div>
+    <div class="ms" id="gm-sub">Tu nombre quedará visible en mi lista. ¡Gracias por tu amor! 💛</div>
     <input class="mi" id="gm-inp" type="text" placeholder="Tu nombre o familia (ej: Familia López)">
     <div class="ma">
       <button class="mc" onclick="closeGM()">Cancelar</button>
@@ -597,7 +549,7 @@ function startCountdown(){
     const wrap = document.getElementById('cd-wrap');
 
     if(diff <= 0){
-      wrap.innerHTML='<div class="cd-done">🎉 ¡El momento ha llegado! ¡Feliz Baby Shower! 🎉</div>';
+      wrap.innerHTML='<div class="cd-done">🎉 ¡Ya llegué! ¡Feliz Baby Shower! 🎉</div>';
       return;
     }
 
@@ -727,7 +679,7 @@ function pickGift(i){
   document.getElementById('gm-name').textContent=item.name;
   document.getElementById('gm-sub').textContent=multi
     ? `Quedan ${avail} de ${item.slots} cupos disponibles 👕`
-    : '¡Tu nombre quedará registrado en la lista! 💕';
+    : '¡Tu nombre quedará registrado en mi lista! 💕';
   document.getElementById('gm-inp').value='';
   document.getElementById('gm-st').textContent='';
   document.getElementById('gm').classList.add('open');
@@ -763,7 +715,7 @@ function selAt(el){
 }
 async function submitForm(){
   const name=document.getElementById('fn').value.trim();
-  if(!name){showMsg('Por favor escribe tu nombre 💙',true);return;}
+  if(!name){showMsg('Por favor dime tu nombre 💙',true);return;}
   const btn=document.getElementById('sub-btn');
   btn.disabled=true;btn.textContent='Enviando...';
   const payload={
@@ -787,16 +739,16 @@ function showMsg(t,e){const el=document.getElementById('sub-msg');el.textContent
 
 // ===== GOOGLE CALENDAR =====
 function addToCalendar(){
-  const title=encodeURIComponent('Baby Shower 🍼 Kevin & Kathe 💚');
+  const title=encodeURIComponent('Mi Baby Shower 🍼 Kevin & Kathe 💚');
   const details=encodeURIComponent(
-    '🎀 Baby Shower de Kevin & Kathe\n\n'+
+    '🎀 ¡Voy a nacer! Baby Shower de Kevin & Kathe\n\n'+
     '📍 Salón Comunal · Conjunto Residencial Montecarlo 3\n'+
     '   Diagonal 16H # 108-80, Bogotá\n\n'+
-    '👨 Hombres: traen pañales (Etapa 1 a 3)\n'+
-    '👩 Mujeres: traen pañitos húmedos\n\n'+
-    '🎮 Juegos, actividades, torta y sorpresas\n'+
+    '👨 Los adultos me traen pañales (Etapa 1 a 3)\n'+
+    '👩 Las mamitas y tías me traen pañitos húmedos\n\n'+
+    '🍰 Torta y sorpresas para todos\n'+
     '👗 Colores pasteles o blanco\n\n'+
-    'Con amor ❤ Kevin & Kathe'
+    'Con todo mi amor ❤ tu bebé y mis papitos Kevin & Kathe'
   );
   const loc=encodeURIComponent('Diagonal 16H # 108-80, Bogotá, Colombia');
   const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260816T140000/20260816T180000&details=${details}&location=${loc}&sf=true&output=xml`;
