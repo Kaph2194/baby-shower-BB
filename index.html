@@ -608,14 +608,18 @@ async function fetchReservations() {
   container.innerHTML = '<p style="text-align:center;color:var(--tm);font-style:italic;">Cargando lista de regalos... 🎁</p>';
   
   try {
-    const response = await fetch(SCRIPT_URL);
+    // Agregamos un timestamp (?_t=...) al final de la URL para romper la caché del navegador
+    const cacheBuster = `?_t=${Date.now()}`;
+    const response = await fetch(SCRIPT_URL + cacheBuster);
     const data = await response.json();
     
     if (data.status === 'ok' && data.reservations) {
-      // Cruzamos las reservas del Excel con nuestro array local de regalos
+      // Limpiamos primero las reservas locales para evitar duplicados
+      gifts.forEach(gift => gift.reservations = []);
+
+      // Cruzamos las reservas reales del Excel
       gifts.forEach(gift => {
         if (data.reservations[gift.id]) {
-          // Asignamos las reservas encontradas (respetando el límite de slots)
           gift.reservations = data.reservations[gift.id].slice(0, gift.slots);
         }
       });
@@ -624,10 +628,9 @@ async function fetchReservations() {
     console.error("No se pudieron cargar las reservas en tiempo real:", e);
   }
   
-  // Pintamos los regalos actualizados (los llenos saldrán bloqueados y tachados)
+  // Pintamos los regalos actualizados
   renderGifts(); 
 }
-
 // ===== GIFTS — lista única con slots múltiples para ropa =====
 // slots: número de familias que pueden escoger ese regalo
 // reservations: array con los nombres de quienes ya reservaron
