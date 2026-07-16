@@ -598,6 +598,11 @@ function openEnvelope(){
       
       // Cargar reservas reales desde Google Sheets antes de mostrar los regalos
       await fetchReservations(); 
+
+      // 🔄 Actualización automática cada 25s mientras la página esté abierta,
+      // para que la lista de regalos nunca se quede desactualizada en la pantalla
+      // de nadie (evita que alguien vea disponible algo que ya fue reservado).
+      setInterval(fetchReservations, 25000);
     }, 800);
   }, 1000);
 }
@@ -605,8 +610,10 @@ function openEnvelope(){
 // Nueva función para traer las reservas en tiempo real
 async function fetchReservations() {
   const container = document.getElementById('gifts-c');
-  container.innerHTML = '<p style="text-align:center;color:var(--tm);font-style:italic;">Cargando lista de regalos... 🎁</p>';
-  
+  if (container.innerHTML.trim() === '') {
+    container.innerHTML = '<p style="text-align:center;color:var(--tm);font-style:italic;">Cargando lista de regalos... 🎁</p>';
+  }
+
   try {
     // Agregamos un timestamp (?_t=...) al final de la URL para romper la caché del navegador
     const cacheBuster = `?_t=${Date.now()}`;
@@ -631,6 +638,26 @@ async function fetchReservations() {
   // Pintamos los regalos actualizados
   renderGifts(); 
 }
+
+// 🔒 Verifica en tiempo real el estado de UN regalo puntual contra Google Sheets.
+// Se usa justo antes de abrir el formulario y justo antes de guardar, para
+// bloquear los regalos que ya fueron reservados por otra persona, sin importar
+// quién o cuándo abrió la página.
+async function refreshGiftReservations(item){
+  try{
+    const cacheBuster = `?_t=${Date.now()}`;
+    const response = await fetch(SCRIPT_URL + cacheBuster);
+    const data = await response.json();
+    if (data.status === 'ok' && data.reservations && data.reservations[item.id]) {
+      item.reservations = data.reservations[item.id].slice(0, item.slots);
+    } else if (data.status === 'ok') {
+      item.reservations = [];
+    }
+  }catch(e){
+    console.error('No se pudo verificar disponibilidad en tiempo real:', e);
+  }
+}
+
 // ===== GIFTS — lista única con slots múltiples para ropa =====
 // slots: número de familias que pueden escoger ese regalo
 // reservations: array con los nombres de quienes ya reservaron
@@ -701,10 +728,23 @@ function renderGifts(){
   c.innerHTML=`<div class="fc"><div class="gl">${rows}</div></div>`;
 }
 
-function pickGift(i){
+async function pickGift(i){
   if(isFull(gifts[i])) return;
   currentGift=i;
   const item=gifts[i];
+
+  // 🔒 Verificación en tiempo real: antes de abrir el formulario, confirmamos
+  // con Google Sheets que el regalo sigue disponible (por si alguien más
+  // acaba de reservarlo mientras esta página estaba abierta).
+  await refreshGiftReservations(item);
+  renderGifts();
+
+  if(isFull(item)){
+    currentGift=null;
+    alert('¡Uy! Este regalo ya fue reservado por alguien más 💛 Por favor elige otro.');
+    return;
+  }
+
   const avail=item.slots - item.reservations.length;
   const multi=item.slots>1;
   document.getElementById('gm-name').textContent=item.name;
@@ -725,15 +765,30 @@ async function confirmGift(){
     alert('¡Ya reservaste este regalo! 💕');return;
   }
   const btn=document.getElementById('gm-ok');
-  btn.disabled=true; btn.textContent='Guardando...';
+  btn.disabled=true; btn.textContent='Verificando...';
   const item=gifts[currentGift];
+
+  // 🔒 Verificación FINAL en tiempo real justo antes de guardar. Esto evita que
+  // dos personas que reservan casi al mismo tiempo terminen ambas guardadas
+  // para el mismo cupo (condición de carrera).
+  await refreshGiftReservations(item);
+
+  if(isFull(item)){
+    renderGifts();
+    closeGM();
+    btn.disabled=false; btn.textContent='¡Yo lo traigo!';
+    alert('¡Uy! Justo alguien más reservó este regalo antes que tú 😅 Por favor elige otro 💛');
+    return;
+  }
+
+  btn.textContent='Guardando...';
   try{
     await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({action:'gift',giftId:item.id,giftName:item.name,
         slot:`${item.reservations.length+1}/${item.slots}`,
         reservedBy:name,timestamp:new Date().toISOString()})});
   }catch(e){}
-  gifts[currentGift].reservations.push(name);
+  item.reservations.push(name);
   renderGifts(); closeGM();
   btn.disabled=false; btn.textContent='¡Yo lo traigo!';
 }
