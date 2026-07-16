@@ -588,16 +588,44 @@ function openEnvelope(){
   const sc = document.getElementById('env-screen');
   setTimeout(()=>{
     sc.style.opacity = '0';
-    setTimeout(()=>{
+    setTimeout(async ()=>{ // <-- Agregamos async aquí
       sc.style.display = 'none';
       document.getElementById('main-page').style.display = 'block';
       document.getElementById('mus-w').style.display = 'flex';
-      startCountdown();  // ← inicia aquí, cuando el DOM de la cuenta ya existe
+      startCountdown();  
       isPlaying = true;
       startMusic();
-      renderGifts();
+      
+      // Cargar reservas reales desde Google Sheets antes de mostrar los regalos
+      await fetchReservations(); 
     }, 800);
   }, 1000);
+}
+
+// Nueva función para traer las reservas en tiempo real
+async function fetchReservations() {
+  const container = document.getElementById('gifts-c');
+  container.innerHTML = '<p style="text-align:center;color:var(--tm);font-style:italic;">Cargando lista de regalos... 🎁</p>';
+  
+  try {
+    const response = await fetch(SCRIPT_URL);
+    const data = await response.json();
+    
+    if (data.status === 'ok' && data.reservations) {
+      // Cruzamos las reservas del Excel con nuestro array local de regalos
+      gifts.forEach(gift => {
+        if (data.reservations[gift.id]) {
+          // Asignamos las reservas encontradas (respetando el límite de slots)
+          gift.reservations = data.reservations[gift.id].slice(0, gift.slots);
+        }
+      });
+    }
+  } catch (e) {
+    console.error("No se pudieron cargar las reservas en tiempo real:", e);
+  }
+  
+  // Pintamos los regalos actualizados (los llenos saldrán bloqueados y tachados)
+  renderGifts(); 
 }
 
 // ===== GIFTS — lista única con slots múltiples para ropa =====
