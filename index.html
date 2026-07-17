@@ -485,7 +485,7 @@ footer strong{color:var(--ocre-l)}
 // ============================================================
 // CONFIG — reemplaza con tu Google Apps Script URL
 // ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8-w-vbDG2PWl4ewLLk6E1qtTsSCf_NB-ctXDS8rXx8e6Z5BSvZH82AHlpZWb_LM_u/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5UhxxRhomSxOtEeNVryeB1a2Z5UJQQVtKHa9kNKzHjv3luhXVd5Sw_HpXW-qzwUKL/exec';
 // ============================================================
 
 // ===== FLOATING EMOJIS =====
@@ -808,9 +808,20 @@ async function reserveGift(i){
   // Reservamos el cupo de inmediato (sin pedir nombre) para bloquearlo para
   // todos los visitantes. El nombre real se completa después, cuando la
   // persona llena el formulario de confirmación de asistencia.
+  //
+  // IMPORTANTE: ya no usamos mode:'no-cors' para esto. Con no-cors el
+  // navegador no puede saber si la escritura realmente llegó a Google
+  // Sheets (respuesta "opaca"), así que si fallaba, la página lo daba por
+  // guardado igual y luego la actualización automática lo borraba de la
+  // pantalla al no encontrarlo en la hoja real. Usamos 'text/plain' como
+  // Content-Type porque evita el preflight CORS que Apps Script no soporta,
+  // y así sí podemos leer la respuesta real y confirmar el guardado.
+  let saved = false;
   try{
-    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
         action:'gift',
         giftId:item.id,
         giftName:item.name,
@@ -818,16 +829,27 @@ async function reserveGift(i){
         reservedBy:'Reservado',
         reservationId,
         timestamp:new Date().toISOString()
-      })});
-  }catch(e){}
+      })
+    });
+    const result = await response.json();
+    saved = !!(result && result.status === 'ok');
+    if(!saved) console.error('⚠️ El script no pudo guardar la reserva:', result);
+  }catch(e){
+    console.error('❌ No se pudo conectar con Google Sheets para reservar:', e);
+  }
+
+  isReserving = false;
+
+  if(!saved){
+    alert('😥 No se pudo guardar tu reserva por un problema de conexión. Por favor intenta de nuevo en un momento.');
+    return;
+  }
 
   item.reservations.push('Reservado');
   renderGifts();
 
   savePendingReservation(reservationId, item.id, item.name);
   renderPendingGiftsNote();
-
-  isReserving = false;
 
   document.getElementById('gm-name').textContent = item.name;
   document.getElementById('gm').classList.add('open');
@@ -869,9 +891,25 @@ async function submitForm(){
     timestamp:new Date().toISOString(),
     giftReservationIds // el Apps Script usa esto para poner el nombre en los regalos reservados
   };
+  let ok = false;
   try{
-    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  }catch(e){}
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    ok = !!(result && result.status === 'ok');
+    if(!ok) console.error('⚠️ El script respondió con un error al confirmar asistencia:', result);
+  }catch(e){
+    console.error('❌ No se pudo conectar con Google Sheets para confirmar asistencia:', e);
+  }
+
+  if(!ok){
+    btn.disabled=false; btn.textContent='✨ Confirmar Asistencia ✨';
+    showMsg('😥 No se pudo enviar tu confirmación por un problema de conexión. Por favor intenta de nuevo.', true);
+    return;
+  }
 
   if(giftReservationIds.length){
     clearPendingReservations();
