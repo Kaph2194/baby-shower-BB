@@ -375,7 +375,7 @@ footer strong{color:var(--ocre-l)}
       <p class="sl">🎁 Con todo mi cariño · <em style="font-style:italic;color:var(--sage)">100% opcional</em></p>
       <h2 class="st">Lista de <span>Regalos</span></h2>
     </div>
-    <div class="gift-note">💚 ¡Tu presencia es mi regalo favorito! Mis papitos me ayudaron a armar esta lista con las cositas que <strong>más voy a necesitar</strong> cuando nazca, pero no es obligatorio que elijas algo de aquí. Si prefieres traerme algún otro detalle que no esté en la lista, ¡está perfecto y lo recibiré con el mismo amor! Por favor, no te sientas presionado ni obligado a nada. Si deseas reservar algo de esta lista, haz clic sobre el regalo, escribe tu nombre y quedará guardado para ti. 🦁</div>
+    <div class="gift-note">💚 ¡Tu presencia es mi regalo favorito! Mis papitos me ayudaron a armar esta lista con las cositas que <strong>más voy a necesitar</strong> cuando nazca, pero no es obligatorio que elijas algo de aquí. Si prefieres traerme algún otro detalle que no esté en la lista, ¡está perfecto y lo recibiré con el mismo amor! Por favor, no te sientas presionado ni obligado a nada. Si deseas reservar algo de esta lista, solo haz clic sobre el regalo y quedará reservado al instante. Luego, baja y confirma tu asistencia en el formulario — ahí quedará tu nombre asociado a tu reserva. 🦁</div>
     <div id="gifts-c"></div>
   </section>
 
@@ -408,7 +408,7 @@ footer strong{color:var(--ocre-l)}
   </section>
 
   <!-- CONFIRM -->
-  <section class="confirm-bg">
+  <section class="confirm-bg" id="confirm-section">
     <div class="sh">
       <img class="mascot left" src="assets/hippo.png" alt="Hipopótamo">
       <p class="sl">✉ Cuéntame · <em style="font-style:italic;color:#a13d2f">aquí</em></p>
@@ -416,6 +416,7 @@ footer strong{color:var(--ocre-l)}
     </div>
     <div class="confirm-card">
       <p style="text-align:center;font-size:14px;color:var(--tm);margin-bottom:18px;background:var(--sage-p);border-radius:12px;padding:10px 14px">📋 Por favor confírmame tu asistencia antes de mi fiesta, ¡es <strong>indispensable</strong> para que mis papitos organicen todo con mucho amor!</p>
+      <div id="pending-gifts-note" style="display:none;background:var(--ocre-p);border:1px solid var(--ocre-l);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:var(--sage);line-height:1.6"></div>
       <div id="form-area">
         <div class="form-row c2">
           <div class="fg"><label class="fl">Tu nombre *</label><input class="fi2" id="fn" type="text" placeholder="María García" required></div>
@@ -471,15 +472,12 @@ footer strong{color:var(--ocre-l)}
 <div class="mw" id="gm">
   <div class="mb">
     <div style="font-size:38px;margin-bottom:10px">🎁</div>
-    <div class="mt3">Reservar regalo</div>
+    <div class="mt3">¡Regalo reservado!</div>
     <div class="mg" id="gm-name"></div>
-    <div class="ms" id="gm-sub">Tu nombre quedará visible en mi lista. ¡Gracias por tu amor! 💛</div>
-    <input class="mi" id="gm-inp" type="text" placeholder="Tu nombre o familia (ej: Familia López)">
+    <div class="ms">Ya quedó reservado para ti 💛 Ahora baja y confirma tu asistencia en el formulario de abajo — ahí quedará tu nombre asociado a este regalo.</div>
     <div class="ma">
-      <button class="mc" onclick="closeGM()">Cancelar</button>
-      <button class="mok" id="gm-ok" onclick="confirmGift()">¡Yo lo traigo!</button>
+      <button class="mok" style="flex:1" onclick="goToConfirmForm()">Ir a confirmar ⬇</button>
     </div>
-    <p class="mst" id="gm-st"></p>
   </div>
 </div>
 
@@ -487,7 +485,7 @@ footer strong{color:var(--ocre-l)}
 // ============================================================
 // CONFIG — reemplaza con tu Google Apps Script URL
 // ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlcDBaJgrCTZHeTS0o2Fmbc1uYdfdI6A3FRbAn9xckZJquYYL4PAxnoEhMnbx6B6q-/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8-w-vbDG2PWl4ewLLk6E1qtTsSCf_NB-ctXDS8rXx8e6Z5BSvZH82AHlpZWb_LM_u/exec';
 // ============================================================
 
 // ===== FLOATING EMOJIS =====
@@ -597,7 +595,8 @@ function openEnvelope(){
       startMusic();
       
       // Cargar reservas reales desde Google Sheets antes de mostrar los regalos
-      await fetchReservations(); 
+      await fetchReservations();
+      renderPendingGiftsNote(); // por si ya había reservado algo en una visita anterior sin confirmar aún
 
       // 🔄 Actualización automática cada 25s mientras la página esté abierta,
       // para que la lista de regalos nunca se quede desactualizada en la pantalla
@@ -693,8 +692,6 @@ const gifts=[
   {id:"g15", icon:"🏋🏻‍♂️", name:"Gimnasio de actividades / Tapete",   slots:1, reservations:[]},
 ];
 
-let currentGift=null;
-
 function isFull(item){ return item.reservations.length >= item.slots; }
 
 function renderGifts(){
@@ -731,7 +728,7 @@ function renderGifts(){
       progress=`<div class="gr-progress"><div class="gr-progress-bar" style="width:${pct}%"></div></div>`;
     }
 
-    rows+=`<div class="gr${full?' taken':''}" onclick="pickGift(${i})">
+    rows+=`<div class="gr${full?' taken':''}" onclick="reserveGift(${i})">
       <span class="gr-ico">${item.icon}</span>
       <div class="gr-info">
         <div class="gr-n">${item.name}</div>
@@ -744,69 +741,104 @@ function renderGifts(){
   c.innerHTML=`<div class="fc"><div class="gl">${rows}</div></div>`;
 }
 
-async function pickGift(i){
-  if(isFull(gifts[i])) return;
-  currentGift=i;
-  const item=gifts[i];
+// ===== RESERVAS PENDIENTES (localStorage) =====
+// Guardamos aquí los regalos que la persona reservó en esta visita, sin
+// nombre todavía. Cuando llene el formulario de confirmación de abajo, ese
+// nombre se envía al servidor y se asocia a estas reservas.
+function getPendingReservations(){
+  try{
+    return JSON.parse(localStorage.getItem('pendingGiftReservations') || '[]');
+  }catch(e){
+    return [];
+  }
+}
+function savePendingReservation(reservationId, giftId, giftName){
+  const list = getPendingReservations();
+  list.push({reservationId, giftId, giftName});
+  localStorage.setItem('pendingGiftReservations', JSON.stringify(list));
+}
+function clearPendingReservations(){
+  localStorage.removeItem('pendingGiftReservations');
+}
 
-  // 🔒 Verificación en tiempo real: antes de abrir el formulario, confirmamos
-  // con Google Sheets que el regalo sigue disponible (por si alguien más
-  // acaba de reservarlo mientras esta página estaba abierta).
+function renderPendingGiftsNote(){
+  const el = document.getElementById('pending-gifts-note');
+  if(!el) return;
+  const pending = getPendingReservations();
+  if(pending.length === 0){
+    el.style.display='none';
+    el.innerHTML='';
+    return;
+  }
+  const names = pending.map(p=>`<strong>${p.giftName}</strong>`).join(', ');
+  el.innerHTML = `🎁 Ya reservaste: ${names}. Al confirmar tu asistencia aquí abajo, tu nombre quedará asociado a ${pending.length>1?'estos regalos':'este regalo'}. 💛`;
+  el.style.display='block';
+}
+
+let isReserving=false;
+
+async function reserveGift(i){
+  if(isReserving) return;
+  const item=gifts[i];
+  if(isFull(item)) return;
+
+  // Evitar reservar el mismo regalo dos veces en la misma visita
+  const pending = getPendingReservations();
+  if(pending.some(p => p.giftId === item.id)){
+    alert('Ya reservaste este regalo en esta visita 💕 Solo falta que confirmes tu asistencia abajo para que quede a tu nombre.');
+    goToConfirmForm();
+    return;
+  }
+
+  isReserving = true;
+
+  // 🔒 Verificación en tiempo real antes de reservar (evita choques si dos
+  // personas reservan casi al mismo tiempo)
   await refreshGiftReservations(item);
   renderGifts();
 
   if(isFull(item)){
-    currentGift=null;
+    isReserving = false;
     alert('¡Uy! Este regalo ya fue reservado por alguien más 💛 Por favor elige otro.');
     return;
   }
 
-  const avail=item.slots - item.reservations.length;
-  const multi=item.slots>1;
-  document.getElementById('gm-name').textContent=item.name;
-  document.getElementById('gm-sub').textContent=multi
-    ? `Quedan ${avail} de ${item.slots} cupos disponibles 👕`
-    : '¡Tu nombre quedará registrado en mi lista! 💕';
-  document.getElementById('gm-inp').value='';
-  document.getElementById('gm-st').textContent='';
-  document.getElementById('gm').classList.add('open');
-}
-function closeGM(){document.getElementById('gm').classList.remove('open');currentGift=null;}
+  const reservationId = 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
 
-async function confirmGift(){
-  const name=document.getElementById('gm-inp').value.trim();
-  if(!name){alert('Por favor escribe tu nombre o familia 💙');return;}
-  // Evitar doble reserva del mismo nombre en el mismo regalo
-  if(gifts[currentGift].reservations.includes(name)){
-    alert('¡Ya reservaste este regalo! 💕');return;
-  }
-  const btn=document.getElementById('gm-ok');
-  btn.disabled=true; btn.textContent='Verificando...';
-  const item=gifts[currentGift];
-
-  // 🔒 Verificación FINAL en tiempo real justo antes de guardar. Esto evita que
-  // dos personas que reservan casi al mismo tiempo terminen ambas guardadas
-  // para el mismo cupo (condición de carrera).
-  await refreshGiftReservations(item);
-
-  if(isFull(item)){
-    renderGifts();
-    closeGM();
-    btn.disabled=false; btn.textContent='¡Yo lo traigo!';
-    alert('¡Uy! Justo alguien más reservó este regalo antes que tú 😅 Por favor elige otro 💛');
-    return;
-  }
-
-  btn.textContent='Guardando...';
+  // Reservamos el cupo de inmediato (sin pedir nombre) para bloquearlo para
+  // todos los visitantes. El nombre real se completa después, cuando la
+  // persona llena el formulario de confirmación de asistencia.
   try{
     await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({action:'gift',giftId:item.id,giftName:item.name,
+      body:JSON.stringify({
+        action:'gift',
+        giftId:item.id,
+        giftName:item.name,
         slot:`${item.reservations.length+1}/${item.slots}`,
-        reservedBy:name,timestamp:new Date().toISOString()})});
+        reservedBy:'Reservado',
+        reservationId,
+        timestamp:new Date().toISOString()
+      })});
   }catch(e){}
-  item.reservations.push(name);
-  renderGifts(); closeGM();
-  btn.disabled=false; btn.textContent='¡Yo lo traigo!';
+
+  item.reservations.push('Reservado');
+  renderGifts();
+
+  savePendingReservation(reservationId, item.id, item.name);
+  renderPendingGiftsNote();
+
+  isReserving = false;
+
+  document.getElementById('gm-name').textContent = item.name;
+  document.getElementById('gm').classList.add('open');
+}
+
+function closeGM(){document.getElementById('gm').classList.remove('open');}
+
+function goToConfirmForm(){
+  closeGM();
+  const target = document.getElementById('confirm-section');
+  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 // ===== ATTEND & FORM =====
@@ -820,6 +852,11 @@ async function submitForm(){
   if(!name){showMsg('Por favor dime tu nombre 💙',true);return;}
   const btn=document.getElementById('sub-btn');
   btn.disabled=true;btn.textContent='Enviando...';
+
+  // Regalos que esta persona reservó en esta visita, pendientes de nombre
+  const pendingGifts = getPendingReservations();
+  const giftReservationIds = pendingGifts.map(p => p.reservationId);
+
   const payload={
     action:'confirm',
     name,
@@ -829,11 +866,19 @@ async function submitForm(){
     kids:document.getElementById('fg-kids').value.trim()||'0',
     attendance:atVal,
     message:document.getElementById('fm').value.trim(),
-    timestamp:new Date().toISOString()
+    timestamp:new Date().toISOString(),
+    giftReservationIds // el Apps Script usa esto para poner el nombre en los regalos reservados
   };
   try{
     await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   }catch(e){}
+
+  if(giftReservationIds.length){
+    clearPendingReservations();
+    renderPendingGiftsNote();
+    fetchReservations(); // refresca para mostrar el nombre real en los regalos
+  }
+
   document.getElementById('form-area').style.display='none';
   document.getElementById('suc-area').style.display='block';
 }
